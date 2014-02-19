@@ -1,0 +1,10 @@
+<form action="/user/update/<%= user.idUser %>" method="POST" class="form-signin">
+	<h2 class"form-signin-heading">Email Edit</h2>
+	Current email is: <%- user.U_email %> <br />
+	<b>Type your new address here</b><br />
+	<input type="email" class="form-control" placeholder="Email" name="U_email">
+	<input type="hidden" name="idUser" value="<%= user.idUser %>"/>
+	<br />
+	<input type="submit" class="btn btn-lg btn-primary btn-block" value="Commit Change"/>
+	<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+</form>

@@ -1,0 +1,83 @@
+<div class='container'>
+	Welcome <%- student.User_idUser %>, this is your profile area.
+	<h2>
+		<%- session.User.U_email %> &nbsp;
+		<a href="/user/edit/<%= student.User_idUser %>" class="btn btn-sm btn-warning">Edit</a>
+	</h2>
+	<hr>
+	<div class='row-fluid'>
+		<div class='span5'>
+			<table class="table table-striped">
+				<h4>
+				<tr>
+					<td>CAO Score:</td>
+					<td><%= student.S_CAO %></td>
+					<td>
+						<form action="/course/indexcao" method="POST">
+							<input type="hidden" name="S_CAO" value="<%= student.S_CAO %>" />
+							<input type="submit" class="btn btn-sm btn-default" value="View Courses" />
+							<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td>Guardian:</td>
+					<td><%- student.S_Parent %></td>
+					<td><a href="/student/edit/<%- student.User_idUser %>" class="btn btn-sm btn-warning">Edit</a></td>
+				</tr>
+			</table>
+		</div>
+		<div class='span6'>
+			<blockquote>
+			    <p>Education is the most powerful weapon which you can use to change the world.</p>
+			    <small>Nelson Mandela</small>
+			</blockquote>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+			<!--<img data-src="holder.js/300x200" alt="..."> -->
+			<div class="caption">
+				<h3>Subjects and CAO</h3>
+				<p>Colleges use your CAO score to see are you academically equipt to complete the course you chose. Step 1 of picking the perfect course for you is to capture your leaving certificate expectations, if you have already completed your leaving certificate this step is going to be even easier. Try to be as honest as possible. Certain courses require particular subjects, so your subject selection is also important here.</p>
+				<p><a href="/subject/selector" class="btn btn-info">Step One: Leaving Certificate</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+			<!--<img data-src="holder.js/300x200" alt="..."> -->
+			<div class="caption">
+				<h3>Personality Calculator</h3>
+				<p>This personality calculator is based on the Holland Occupational Themes (RIASEC). The idea here is that everyones personality can be linked with a career type and vocational choice. The test was first developed by the psychologist John L. Holland. Each letter in the abbreviation "RIASEC" has a perticular meaning: Realistic (Doers), Investigative (Thinkers), Artistic (Creators), Social (Helpers), Enterprising (Persuaders), and Conventional (Organizers).</p>
+				<p><a href="/studentriasec/new" class="btn btn-info">Step Two: Personality</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+			<!--<img data-src="holder.js/300x200" alt="..."> -->
+			<div class="caption">
+				<h3>Sports and Hobbies</h3>
+				<p>Picking the perfect course for you can have a lot to do with picking the perfect third level institute. This step is about finding the institute that suits your extra corricular activities. For some it will be playing sports like soccer, others might enjoy canoeing. The great thing about third-level institutes is the variety will surely have something that suits everyone. DIT have a Kite and Wake Team for the extremists and Archery for the purists.</p>
+				<p><a href="#" class="btn btn-info">Step Three: Sports and Hobbies</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+			<!--<img data-src="holder.js/300x200" alt="..."> -->
+			<div class="caption">
+				<h3>Location and Amenities</h3>
+				<p>This step is all about the institute.</br>
+					Where would you like to study?</br> By selecting a county or counties you would like to study in we can filter institutes that are local to your selection.</br> What amenities would you like the college to have?</br>Is a swimming pool and gymnasium as important to you as Trinity College Dublin's Library.</p>
+				<p><a href="subject/selector" class="btn btn-info">Step Four: Institute Details</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

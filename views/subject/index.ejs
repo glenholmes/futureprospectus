@@ -1,0 +1,25 @@
+<div class="container">
+	<h1>All Subjects</h1>
+	<table class="table">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Extra CAO</th>
+			<th></th>
+		</tr>
+		<% _.each(subjects, function(subject) { %>
+		<tr data-id="<%= subject.idSubjects %>" data-model="subject">
+			<td><%= subject.idSubjects %></td>
+			<td><%= subject.S_name %></td>
+			<td><%= subject.S_cao %></td>
+			<td>
+				<form action="/subject/destroy/<%= subject.idSubjects %>" method="POST">
+					<input type="hidden" name="_method" value="delete" />
+					<input type="submit" class="btn btn-sm btn-danger" value="Delete" />
+					<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+				</form>
+			</td>
+		</tr>
+		<% }) %>
+	</table>
+</div>

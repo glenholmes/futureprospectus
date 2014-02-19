@@ -1,0 +1,23 @@
+<div class="container">
+	<h1>All Sports</h1>
+	<table class="table">
+		<tr>
+			<th>Sport ID</th>
+			<th>Sport Name</th>
+			<th>Remove</th>
+		</tr>
+		<% _.each(sports, function(sport) { %>
+		<tr data-id="<%= sport.idSports %>" data-model="sport">
+			<td><%= sport.idSports %></td>
+			<td><%= sport.S_name %></td>
+			<td>
+				<form action="/sport/destroy/<%= sport.idSports %>" method="POST">
+					<input type="hidden" name="_method" value="delete" />
+					<input type="submit" class="btn btn-sm btn-danger" value="Delete" />
+					<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+				</form>
+			</td>
+		</tr>
+		<% }) %>
+	</table>
+</div>

@@ -1,0 +1,21 @@
+<form action="/institute/create" method="POST" class="z">
+	<h2 class"form-signin-heading">Create New Course</h2>
+
+	<% if(flash && flash.err) { %>
+	<ul class="alert alert-success">
+	<% Object.keys(flash.err).forEach(function(error) { %>
+		<li><%- JSON.stringify(flash.err[error]) %></li>
+	<% }) %>
+	</ul>
+	<% } %>
+
+	<input type="text" class="form-control" placeholder="Course ID" name="idCourses">
+	<input type="text" class="form-control" placeholder="Course name" name="C_name">
+	<input type="text" class="form-control" placeholder="Course Description" name="C_description">
+	<input type="number" class="form-control" placeholder="CAO Requirements" name="C_cao">
+	<input type="text" class="form-control" placeholder="Level" name="C_level">
+	<input type="text" class="form-control" placeholder="Special Requirements" name="C_special_reqs">
+	<br />
+	<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>
+	<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+</form>

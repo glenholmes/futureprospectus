@@ -1,0 +1,67 @@
+<div class="container" >
+<h2>Assess your Personality</h2>
+<h4>Read each statement. If you agree with the statement, check the box. There are no wrong answers!</h4>
+<form action="/studentriasec/test" method="POST" >
+	<div class="row">
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+				<input type="checkbox" name="riasec_letter" value="R"> I like to work on cars</br>
+				<input type="checkbox" name="riasec_letter" value="I"> I like to do puzzles</br>
+				<input type="checkbox" name="riasec_letter" value="A"> I am good at working independently </br>
+				<input type="checkbox" name="riasec_letter" value="S"> I like to work in teams </br>
+				<input type="checkbox" name="riasec_letter" value="E"> I am an ambitious person, I set goals for myself </br>
+				<input type="checkbox" name="riasec_letter" value="C"> I like to organize things, (files, desks/offices) </br>
+				<input type="checkbox" name="riasec_letter" value="R"> I like to take care of animals</br>			
+				<input type="checkbox" name="riasec_letter" value="I"> I enjoy trying to figure out how things work</br>
+				<input type="checkbox" name="riasec_letter" value="A"> I like to read about art and music</br>
+				<input type="checkbox" name="riasec_letter" value="S"> I like to teach or train people </br>
+				<input type="checkbox" name="riasec_letter" value="E"> I like to try to influence or persuade people </br>
+				<input type="checkbox" name="riasec_letter" value="C"> I like to have clear instructions to follow </br>
+				<input type="checkbox" name="riasec_letter" value="R"> I like to build things</br>
+				<input type="checkbox" name="riasec_letter" value="I"> I like to analyse problems and situations</br>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+				<input type="checkbox" name="riasec_letter" value="R"> I like putting things together or assembling things</br>
+				<input type="checkbox" name="riasec_letter" value="I"> I like to do experiments</br>
+				<input type="checkbox" name="riasec_letter" value="A"> I enjoy creative writing </br>
+				<input type="checkbox" name="riasec_letter" value="S"> I like trying to help people solve their problems </br>
+				<input type="checkbox" name="riasec_letter" value="E"> I like selling things </br>
+				<input type="checkbox" name="riasec_letter" value="C"> I wouldn’t mind working 8 hours per day in an office </br>
+				<input type="checkbox" name="riasec_letter" value="R"> I like to cook</br>
+				<input type="checkbox" name="riasec_letter" value="I"> I enjoy science</br>
+				<input type="checkbox" name="riasec_letter" value="A"> I am a creative person</br>
+				<input type="checkbox" name="riasec_letter" value="S"> I am interested in healing people </br>
+				<input type="checkbox" name="riasec_letter" value="E"> I am quick to take on new responsibilities </br>
+				<input type="checkbox" name="riasec_letter" value="C"> I pay attention to details </br>
+				<input type="checkbox" name="riasec_letter" value="A"> I like to play instruments or sing</br>
+				<input type="checkbox" name="riasec_letter" value="S"> I enjoy learning about other cultures </br>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+				<input type="checkbox" name="riasec_letter" value="R"> I am a practical person</br>
+				<input type="checkbox" name="riasec_letter" value="R"> I like working outdoors</br>
+				<input type="checkbox" name="riasec_letter" value="I"> I like working with numbers or charts</br>
+				<input type="checkbox" name="riasec_letter" value="I"> I am good at maths</br>
+				<input type="checkbox" name="riasec_letter" value="A"> I like acting in plays</br>
+				<input type="checkbox" name="riasec_letter" value="A"> I like to draw</br>
+				<input type="checkbox" name="riasec_letter" value="S"> I like to get into discussions about issues</br>
+				<input type="checkbox" name="riasec_letter" value="S"> I like helping people </br>
+				<input type="checkbox" name="riasec_letter" value="E"> I would like to start my own business </br>
+				<input type="checkbox" name="riasec_letter" value="E"> I like to lead </br>
+				<input type="checkbox" name="riasec_letter" value="C"> I am good at keeping records of my work</br>
+				<input type="checkbox" name="riasec_letter" value="C"> I would like to work in an office </br>			
+				<input type="checkbox" name="riasec_letter" value="E"> I like to give speeches </br>
+				<input type="checkbox" name="riasec_letter" value="C"> I like to do filing or typing </br>
+			</div>
+		</div>
+	</div>
+	<div class="pull-right">
+	<input type="submit" class="btn btn-sm btn-primary" value="Submit" />
+	<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+</form>
+	<a href="/studentriasec/new" class="btn btn-sm btn-warning">Clear</a>
+	</div>
+</div>

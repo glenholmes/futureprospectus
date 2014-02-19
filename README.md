@@ -1,0 +1,2 @@
+# futureProspectus
+### a Sails application

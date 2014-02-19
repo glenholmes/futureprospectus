@@ -1,0 +1,11 @@
+<form action="/student/update/<%= session.User.idUser %>" method="POST" class="form-signin">
+	<h2 class"form-signin-heading">Add Guardian Email</h2>
+	Current email is: <%- student.S_Parent %> <br />
+	<b>Enter new guardian email here</b><br />
+
+	<input type="email" name="S_Parent" value="<%= student.S_Parent %>"/>
+	<input type="hidden" name="User_idUser" value="<%= student.User_idUser %>"/>
+	<br />
+	<input type="submit" class="btn btn-warning btn-sm" value="Commit Change"/>
+	<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+</form>

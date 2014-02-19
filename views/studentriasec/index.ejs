@@ -1,0 +1,13 @@
+<div class="container">
+	<h1>All RIASEC Values</h1>
+	<table class="table table-striped">
+		<% _.each(riasecs, function(riasec) { %>
+		<tr>
+			<td><%= riasec.idRIASEC %></td>
+		</tr>
+		<tr>
+			<td><%= riasec.R_description %></td>
+		</tr>
+		<% }) %>
+	</table>
+</div>

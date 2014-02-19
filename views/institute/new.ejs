@@ -1,0 +1,50 @@
+<form action="/institute/create" method="POST" class="z">
+	<h2 class"form-signin-heading">Create an account</h2>
+
+	<% if(flash && flash.err) { %>
+	<ul class="alert alert-success">
+	<% Object.keys(flash.err).forEach(function(error) { %>
+		<li><%- JSON.stringify(flash.err[error]) %></li>
+	<% }) %>
+	</ul>
+	<% } %>
+
+	<!-- <input type="" class="form-control" placeholder="" name="" id=""> -->
+
+	<input type="text" class="form-control" placeholder="Institute ID" name="idInstitutes" id="idInstitutes">
+	<input type="text" class="form-control" placeholder="Name" name="I_name" id="I_name">
+	<input type="text" class="form-control" placeholder="Web Address" name="I_url" id="I_url">
+	<input type="email" class="form-control" placeholder="Institute Email" name="I_email" id="I_email">
+	<input type="text" class="form-control" placeholder="Telephone" name="I_telephone" id="I_telephone">
+	<select class="form-control" placeholder="County" name="County_County_name">
+	  <option value="Carlow">Carlow</option>
+	  <option value="Cavan">Cavan</option>
+	  <option value="Clare">Clare</option>
+	  <option value="Cork">Cork</option>
+	  <option value="Donegal">Donegal</option>
+	  <option value="Dublin">Dublin</option>
+	  <option value="Galway">Galway</option>
+	  <option value="Kerry">Kerry</option>
+	  <option value="Kildare">Kildare</option>
+	  <option value="Kilkenny">Kilkenny</option>
+	  <option value="Laois">Laois</option>
+	  <option value="Leitrim">Leitrim</option>
+	  <option value="Limerick">Limerick</option>
+	  <option value="Longford">Longford</option>
+	  <option value="Louth">Louth</option>
+	  <option value="Mayo">Mayo</option>
+	  <option value="Meath">Meath</option>
+	  <option value="Monaghan">Monaghan</option>
+	  <option value="Offaly">Offaly</option>
+	  <option value="Roscommon">Roscommon</option>
+	  <option value="Sligo">Sligo</option>
+	  <option value="Tipperary">Tipperary</option>
+	  <option value="Waterford">Waterford</option>
+	  <option value="Westmeath">Westmeath</option>
+	  <option value="Wicklow">Wicklow</option>
+	</select>
+	<input type="hidden" class="form-control" name="User_idUser" id="User_idUser" value="<%= session.User.idUser %>" >
+	<br />
+	<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>
+	<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+</form>

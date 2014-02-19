@@ -1,0 +1,108 @@
+<script>
+	$(document).ready(function(){
+		var gradestext = ["A1", "A2", "B1", "B2", "B3", "C1", "C2", "C3", "D1", "D2", "D3"];
+		var gradesvalue = ["100", "90", "85", "80", "75", "70", "65", "60", "55", "50", "45"];
+		var a = document.getElementById("Grade");
+		var b = document.getElementById("Grade1");
+		var c = document.getElementById("Grade2");
+		var d = document.getElementById("Grade3");
+		var e = document.getElementById("Grade4");
+		var f = document.getElementById("Grade5");
+		var option;
+
+		for (var i=0;i<gradestext.length;i++)
+		{
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			a.add(option);
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			b.add(option);
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			c.add(option);
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			d.add(option);
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			e.add(option);
+			option = document.createElement("option");
+			option.text = gradestext[i]; option.value = gradesvalue[i];
+			f.add(option);
+		}
+	});
+</script>
+<div class="container">
+	<form action="/caocalc/create" method="POST">
+		<h2>Enter your results</h2>
+		<select placeholder="Subject" name="Subject">
+		<% _.each(subjects, function(subject) { %>
+			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+		<% }) %>
+		</select>
+		<select placeholder="Grade" name="Grade" id="Grade"></select>
+		<select placeholder="Level" name="Level" >
+			<option value="higher">Higher</option>
+			<option value="ordinary">Ordinary</option>
+		</select>
+		<br />
+		<select placeholder="Subject" name="Subject">
+		<% _.each(subjects, function(subject) { %>
+			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+		<% }) %>
+		</select>
+		<select placeholder="Grade" name="Grade" id="Grade1"></select>
+		<select placeholder="Level" name="Level" >
+			<option value="higher">Higher</option>
+			<option value="ordinary">Ordinary</option>
+		</select>
+		<br />
+		<select placeholder="Subject" name="Subject">
+		<% _.each(subjects, function(subject) { %>
+			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+		<% }) %>
+		</select>
+		<select placeholder="Grade" name="Grade" id="Grade2"></select>
+		<select placeholder="Level" name="Level" >
+			<option value="higher">Higher</option>
+			<option value="ordinary">Ordinary</option>
+		</select>
+		<br />
+		<select placeholder="Subject" name="Subject">
+		<% _.each(subjects, function(subject) { %>
+			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+		<% }) %>
+		</select>
+		<select placeholder="Grade" name="Grade" id="Grade3"></select>
+		<select placeholder="Level" name="Level" >
+			<option value="higher">Higher</option>
+			<option value="ordinary">Ordinary</option>
+		</select>
+		<br />
+		<select placeholder="Subject" name="Subject">
+		<% _.each(subjects, function(subject) { %>
+			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+		<% }) %>
+		</select>
+		<select placeholder="Grade" name="Grade" id="Grade4"></select>
+		<select placeholder="Level" name="Level" >
+			<option value="higher">Higher</option>
+			<option value="ordinary">Ordinary</option>
+		</select>
+		<br />
+		<select placeholder="Subject" name="Subject">
+		<% _.each(subjects, function(subject) { %>
+			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+		<% }) %>
+		</select>
+		<select placeholder="Grade" name="Grade" id="Grade5"></select>
+		<select placeholder="Level" name="Level" >
+			<option value="higher">Higher</option>
+			<option value="ordinary">Ordinary</option>
+		</select>
+		<br />
+		<input type="submit" class="btn btn-primary" value="Submit Results"/>
+		<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+	</form>
+</div>
