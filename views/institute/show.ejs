@@ -2,6 +2,20 @@
 	<h1><%- institute.I_name %></h1>
 	<hr>
 	<div class='row-fluid'>
+		<% if (session.User.U_type.localeCompare('institute') == 0) { %>
+		<div class='span5'>
+			<h2><span class="label label-default">Management Console</span></h2>
+			<hr>
+			<div class="btn-group-vertical">
+				<button type="button" class="btn btn-lg btn-warning" onclick="location.href='/institute/edit/<%= institute.idInstitutes %>'">Update Institute Details</button>
+				<button type="button" class="btn btn-lg btn-success" onclick="location.href='/course/new'">Create New Course</button>
+				<button type="button" class="btn btn-lg btn-default" onclick="location.href='/course/indexinstitute/<%- institute.idInstitutes %>'">View <%- institute.idInstitutes %> Courses</button>
+				<button type="button" class="btn btn-lg btn-default" onclick="location.href='/course'">View All Courses</button>
+				<button type="button" class="btn btn-lg btn-warning" onclick="location.href='/sport/institutenew'">Institute Sports</button>
+				<button type="button" class="btn btn-lg btn-warning" onclick="location.href='/amenity/institutenew'">Institute Amenities</button>
+			</div>
+		</div>
+		<% } %>
 		<div class='span6'>
 			<h2><span class="label label-default"><%- institute.idInstitutes %> Contact Info</span></h2>
 			<hr>
@@ -10,17 +24,5 @@
 			<h3><td><a href="tel:<%= institute.I_telephone %>"><%= institute.I_telephone %></a></td></h3>
 			<h3><%- institute.County_County_name %></h3>
 		</div>
-		<% if (session.User.U_type.localeCompare('institute') == 0) { %>
-		<div class='span5'>
-			<h2><span class="label label-default">Management Console</span></h2>
-			<hr>
-			<div class="btn-group-vertical">
-				<button type="button" class="btn btn-lg btn-default" onclick="location.href='/institute/edit/<%= institute.idInstitutes %>'">Update Institute Details</button>
-				<button type="button" class="btn btn-lg btn-warning" onclick="location.href='/course'">View All Courses</button>
-				<button type="button" class="btn btn-lg btn-warning" onclick="location.href='/course/indexinstitute/<%- institute.idInstitutes %>'">View <%- institute.idInstitutes %> Courses</button>
-				<button type="button" class="btn btn-lg btn-success" onclick="location.href='/course/new'">Create New Course</button>
-			</div>
-		</div>
-		<% } %>
 	</div>
 </div>

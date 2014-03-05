@@ -1,6 +1,5 @@
-body {
-	padding-top: 60px;
-	padding-bottom: 40px;
+#spacer {
+	padding-top: 50px;
 }
 
 .jumbotron{
@@ -19,17 +18,12 @@ body {
 	color: gray;
 }
 
-footer {
-	padding-right: 60px;
-}
-
 .form-signin {
-	max-width: 30%;
 	padding: 19px 29px 29px;
 	margin: 0 auto 20px;
 	margin-top: 20px;
-	h2{
-		text-align: center;
-		margin-top: 0px;
-	}
+}
+
+.footer {
+	text-align: center;
 }

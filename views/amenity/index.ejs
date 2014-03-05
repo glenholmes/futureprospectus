@@ -6,10 +6,10 @@
 			<th>Amenity Name</th>
 			<th>Remove</th>
 		</tr>
-		<% _.each(amenitys, function(amenity) { %>
+		<% _.each(amenities, function(amenity) { %>
 		<tr data-id="<%= amenity.idAmenities %>" data-model="amenity">
 			<td><%= amenity.idAmenities %></td>
-			<td><%= amenity.S_name %></td>
+			<td><%= amenity.A_name %></td>
 			<td>
 				<form action="/amenity/destroy/<%= amenity.idAmenities %>" method="POST">
 					<input type="hidden" name="_method" value="delete" />

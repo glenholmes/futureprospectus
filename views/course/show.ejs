@@ -5,13 +5,13 @@
 			<h2><%- course.C_name %></h2>
 			<hr>
 		</div>
-		<div class='span5'>
+		<div id="info" class='span6'>
 			<h3>CAO: <%- course.C_cao %></h3>
 			<h3>Qualification: <%- course.C_level %></h3>
 			<h3>Institute: <a href="/institute/show/<%- course.Institutes_idInstitutes %>"><%- course.Institutes_idInstitutes %></a></h3>
 			<h3>Special Requirements: <%- course.C_special_reqs %></h3>
 		</div>
-		<div class='span6'>
+		<div class='span5'>
 			<div class="jumbotron">
 				<h3>So what is <%- course.C_name %> in <%- course.Institutes_idInstitutes %>?</h2>
 				<h4><%- course.C_description %></h4>
@@ -19,5 +19,25 @@
 		</div>
 	</div>
 	<hr>
-	<a href="/course/edit/<%= course.idCourses %>" class="btn btn-sm btn-warning">Update Institute Details</a>
+	<% if (session.User.U_type.localeCompare('institute') == 0) { %>
+	<a href="/course/edit/<%= course.idCourses %>" class="btn btn-sm btn-warning">Update Course Details</a>	
+	<a href="/occupation/index/<%= course.idCourses %>" class="btn btn-sm btn-success">Add Course Occupations</a>
+	<a href="/course_occupation/destroy/<%= course.idCourses %>" class="btn btn-sm btn-danger">Clear Course Occupations </a>
+	<% } %>
 </div>
+<script>
+	$(document).ready(function(){
+		var course = location.pathname.split('/').slice(-1)[0];
+		console.log(course);
+		$.get("/course_occupation/index/" + course, function(data){
+			var courseOccupation = new Array;
+			courseOccupation = data.occupations;
+			var input = "<h3>Occupations : ";
+			for (var i = 0; i < courseOccupation.length; i++) {
+				input += courseOccupation[i].O_name + ". ";
+			}
+			input += "</h3>";
+			$('#info').append(input);
+		});
+	});
+</script>

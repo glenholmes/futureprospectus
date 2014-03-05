@@ -1,26 +1,26 @@
 /**
- * Studentriasec
+ * Courseoccupation
  *
  * @module      :: Model
  * @description :: A short summary of how this model works and what it represents.
  * @docs		:: http://sailsjs.org/#!documentation/models
  */
 
-module.exports = {schema: true,
-
-	tableName: 'Student_Riasec',
+module.exports = {
+	schema: true,
+	tableName: 'Course_Occupation',
 	adapter:'myLocalMySQLDatabase',
 	migrate: 'safe',
 	autoPk: false,
 	autoCreatedAt: false,
 	autoUpdatedAt: false,
 
-	attributes:{
-		RIASEC_idRIASEC: {
-			type: 'text',
+	attributes:{		
+		Occupation_idOccupation:{
+			type:'string',
 			required: true
 		},
-		Students_User_idUser:{
+		Course_idCourses:{
 			type: 'string',
 			required: true
 		}

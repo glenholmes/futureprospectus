@@ -8,8 +8,6 @@
 			<th>Level</th>
 			<th>Institute</th>
 			<th></th>
-			<th></th>
-			<th></th>
 		</tr>
 		<% _.each(courses, function(course) { %>
 		<tr data-id="<%= course.idCourses %>" data-model="course">
@@ -17,17 +15,9 @@
 			<td><%= course.C_name %></td>
 			<td><%= course.C_cao %></td>
 			<td><%= course.C_level %></td>
-			<td><%= course.Institutes_idInstitutes %></td>
+			<td><%= course.Institutes_idInstitutes %></td>			
 			<td><a href="/course/show/<%= course.idCourses %>" class="btn btn-sm btn-info">Show</a></td>
-			<td><a href="/course/edit/<%= course.idCourses %>" class="btn btn-sm btn-warning">Edit</a></td>
-			<td>
-				<form action="/course/destroy/<%= course.idCourses %>" method="POST">
-					<input type="hidden" name="_method" value="delete" />
-					<input type="submit" class="btn btn-sm btn-danger" value="Delete" />
-					<input type="hidden" name="_csrf" value="<%= _csrf%>" />
-				</form>
-			</td>
 		</tr>
-		<% }); %>
+		<% }) %>
 	</table>
 </div>

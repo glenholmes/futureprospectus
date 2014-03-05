@@ -1,0 +1,15 @@
+<div class="container">
+	<h1>Your personality!</h1>
+	<table class="table table-striped">
+		<% _.each(riasecs, function(riasec) { %>
+		<tr>
+			<td><%= riasec.idRIASEC %></td>
+		</tr>
+		<tr>
+			<td><%= riasec.R_description %></td>
+		</tr>
+		<% }) %>
+	</table>	
+	<a href="/occupation/occupationriasec/<%= session.User.idUser %>" class="btn btn-sm btn-info">View Occupations</a>
+	<a href="/course/algorithm/<%= session.User.idUser %>" class="btn btn-sm btn-info">View Courses</a>
+</div>

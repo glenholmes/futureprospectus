@@ -1,0 +1,27 @@
+<div class="container">
+	<h1>Sports and Hobbies</h1>
+	<h4>Select all the sports available at <%- session.User.idUser %>.</h4>
+	<form action="/sport/institutecreate">
+		<div class="row">
+			<% var index = 1; %>
+			<% var newcol %>
+			<% _.each(sports, function(sport) { %>
+			<% if(index%15 == 1){  %>
+				<div class="col-sm-6 col-md-4"><div class="thumbnail">
+			<% }; %>
+			<% index++; %>
+				<input type="checkbox" name="idSports" value="<%= sport.idSports %>" /> <%= sport.S_name %></br>
+
+			<% if(index%15 == 1){  %>
+					</div></div>
+			<% }; %>
+			<% }) %>
+			</div></div>
+		</div>
+	<div class="row pull-right">
+		<input type="submit" class="btn btn-sm btn-primary" value="Submit" />
+		<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+	</form>
+		<a href="/sport/institutenew" class="btn btn-sm btn-warning">Clear</a>
+</div>
+</div>

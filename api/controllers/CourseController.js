@@ -111,5 +111,23 @@ module.exports = {
 			//pass course to view
 			respond.redirect("/course");
 		});
+	},
+
+	algorithm: function (request, respond, next){
+		Course.query("select * from Course where idCourses in"+
+			" (select Course_idCourses from Course_Occupation where Occupation_idOccupation in"+
+			" (select Occupation_idOccupation from Occupation_Riasec where RIASEC_idRIASEC in"+
+			" (select RIASEC_idRIASEC from Student_Riasec"+
+			" where Students_User_idUser = '"+ request.param('id') +"')"+
+			" group by Occupation_idOccupation having count(Occupation_idOccupation) > 1));"
+		, function twoRiasecMatch(err, courses){
+			if(err) return next(err);
+			if(!courses){
+				respond.redirect("/student/profile/"+ request.param('id'));
+			}
+			respond.view({
+				courses : courses
+			});
+		});
 	}
 };

@@ -72,8 +72,13 @@ module.exports = {
 		User.findOne({idUser : request.param('id')}, function findUser (err, user){
 			// if error return error
 			if(err) return next(err);
-			if(!user) return next("No such user exists");
-
+			if (!user) {
+				request.session.flash = {
+					err: ["No such user exists"]
+				}
+				// redirect back to page
+				return respond.redirect('/error/index');
+			}
 			//pass user to view
 			respond.view({
 				user: user
@@ -87,7 +92,13 @@ module.exports = {
 		User.findOne({idUser : request.param('id')}, function findUser(err, user){
 			// if error return error
 			if(err) return next(err);
-			if(!user) return next("No such user exists");
+			if (!user) {
+				request.session.flash = {
+					err: ["No such user exists"]
+				}
+				// redirect back to page
+				return respond.redirect('/error/index');
+			}
 
 			//pass user to view
 			respond.view({
@@ -102,8 +113,13 @@ module.exports = {
 		User.findOne({idUser : request.param('id')}, function findUser(err, user){
 			// if error return error
 			if(err) return next(err);
-			if(!user) return next("No such user exists");
-
+			if (!user) {
+				request.session.flash = {
+					err: ["No such user exists"]
+				}
+				// redirect back to page
+				return respond.redirect('/error/index');
+			}
 			//pass user to view
 			respond.view({
 				user: user
@@ -138,7 +154,14 @@ module.exports = {
 		Student.findOne({User_idUser : request.param('id')}, function findStudent(err, student){
 			// if error return error
 			if(err) return next(err);
-			if(!student) return next("No such student exists");
+			if (!student) {
+				console.log("ERR : UserController, destroy, Student");
+				request.session.flash = {
+					err: ["No such student exists"]
+				}
+				// redirect back to page
+				return respond.redirect('/error/index');
+			}
 
 			Student.destroy({User_idUser : request.param('id')},function studentDelete(err){
 				if(err) return next(err);
@@ -148,7 +171,14 @@ module.exports = {
 		User.findOne({idUser : request.param('id')}, function findUser(err, user){
 			// if error return error
 			if(err) return next(err);
-			if(!user) return next("No such user exists");
+			if (!user) {
+				console.log("ERR : UserController, destroy, User");
+				request.session.flash = {
+					err: ["No such user exists"]
+				}
+				// redirect back to page
+				return respond.redirect('/error/index');
+			}
 
 			User.destroy({idUser : request.param('id')},function userDelete(err){
 				if(err) return next(err);

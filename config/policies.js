@@ -13,14 +13,18 @@
 
 
 module.exports.policies = {
-
-  // Default policy for all controllers and actions
-  // (`true` allows public access) 
-  '*': 'flash',
-
   user: {
-  	'new' : "flash",
-  	'create' : "flash",
-  	'*' : "isAuthenticated"
-  }
+    'new' : "flash",
+    create : "flash",
+    edit : "userAdmin",
+    show: "userAdmin",
+    '*' : "isAdmin"
+  },
+  student:{
+    'edit' : "userAdmin",
+    profile : "isAuthenticated",
+    profile : "userAdmin",
+  },
+  
+  '*': 'flash'
 };

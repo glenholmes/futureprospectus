@@ -1,0 +1,37 @@
+<div class="container">
+	<h1>Course Occupations</h1>
+	<h4>Select all the occupations available for <%= id %>.</h4>
+	<form action="/course_occupation/create/<%= id %>">
+		<% var index = 1; %>
+		<% var newcol %>
+		<% _.each(occupations, function(occupation) { %>
+			<% if(index%48 == 1){  %>
+		<div class="row">
+			<% }; %>
+			<% if(index%16 == 1){  %>
+			<div class="col-sm-6 col-md-4">
+				<div class="thumbnail">
+			<% }; %>
+			<% index++; %>
+				<input type="checkbox" name="idOccupation" value="<%= occupation.idOccupation %>" /> <%= occupation.O_name %></br>
+
+			<% if(index%16 == 1){  %>
+				</div>
+			</div>
+			<% }; %>
+			<% if(index%48 == 1){  %>
+		</div>
+			<% }; %>
+		<% }) %>
+				</div>
+			</div>
+		</div>
+	<div class="container" >
+	<div class="row pull-right">
+		<input type="submit" class="btn btn-sm btn-primary" value="Submit" />
+		<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+	</form>
+		<a href="/occupation/index" class="btn btn-sm btn-warning">Clear</a>
+</div>
+	</div>
+</div>

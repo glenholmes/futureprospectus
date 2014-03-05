@@ -1,0 +1,27 @@
+<div class="container">
+	<h1>All Occupations</h1>
+	<table class="table">
+		<tr>
+			<th>Index</th>
+			<th>ID</th>
+			<th>Name</th>
+			<th></th>
+		</tr>
+		<% var index = 0; %>
+		<% _.each(occupations, function(occupation) { %>
+		<tr data-id="<%= occupation.idOccupation %>" data-model="occupation">
+			<% index += 1; %>
+			<td><%= index %></td>
+			<td><%= occupation.idOccupation %></td>
+			<td><%= occupation.O_name %></td>
+			<td>
+				<form action="/occupation/destroy/<%= occupation.idOccupation %>" method="POST">
+					<input type="hidden" name="_method" value="delete" />
+					<input type="submit" class="btn btn-sm btn-danger" value="Delete" />
+					<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+				</form>
+			</td>
+		</tr>
+		<% }) %>
+	</table>
+</div>

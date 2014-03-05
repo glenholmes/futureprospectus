@@ -1,14 +1,13 @@
 /**
- * Studentriasec
+ * County
  *
  * @module      :: Model
  * @description :: A short summary of how this model works and what it represents.
  * @docs		:: http://sailsjs.org/#!documentation/models
  */
 
-module.exports = {schema: true,
-
-	tableName: 'Student_Riasec',
+module.exports = {
+	tableName: 'Student_County',
 	adapter:'myLocalMySQLDatabase',
 	migrate: 'safe',
 	autoPk: false,
@@ -16,8 +15,8 @@ module.exports = {schema: true,
 	autoUpdatedAt: false,
 
 	attributes:{
-		RIASEC_idRIASEC: {
-			type: 'text',
+		County_County_name: {
+			type: 'string',
 			required: true
 		},
 		Students_User_idUser:{

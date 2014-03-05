@@ -1,70 +1,86 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%- title %></title>
+    <title>futureProspectus :: Make an informed course choice...</title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="http://bootswatch.com/cyborg/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="http://bootswatch.com/cerulean/bootstrap.min.css">
 
     <!-- Scripts not stored locally -->
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js" type="text/javascript"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-
+    <script src="/linker/js/Chart.js"></script>
+    <script src="/linker/js/socket.io.js"></script>
+    <script src="/linker/js/app.js"></script>
     <!--STYLES-->
     <link rel="stylesheet" href="/linker/styles/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="/linker/styles/custom.css">
     <!--STYLES END-->
+    
+    <style>
+      canvas{
+      }
+    </style>
   </head>
 
   <body>
-
     <div class="navbar navbar-default navbar-fixed-top">
-       <div class="navbar-inner">
-        <div class="container">
-          <a class="navbar-brand" href="/"> futureProspectus</a>
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand">futureProspectus</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
             <% if (session.authenticated){ %>
-              <% if (session.User.U_type.localeCompare('student') == 0){ %>
-              <li class="active"><a href="/student/profile/<%= session.User.idUser %>"><%= session.User.idUser %></a></li>
-              <% } %>
-              <% if (session.User.U_type.localeCompare('institute') == 0) { %>
-              <li class="active"><a href="/institute/show/<%= session.User.idUser %>"><%= session.User.idUser %></a></li>
-              <% } %>
-              <% if (session.User.U_type.localeCompare('admin') == 0) { %>
-              <li class="active"><a href="/user/show/<%= session.User.idUser %>"><%= session.User.idUser %></a></li>
-              <li><a href="/user">User Administration</li>
-              <% } %>
+            <% if (session.User.U_type.localeCompare('student') == 0){ %>
+            <li class="active"><a href="/student/profile/<%= session.User.idUser %>"><%= session.User.idUser %></a></li>
+            <% } %>
+            <% if (session.User.U_type.localeCompare('institute') == 0) { %>
+            <li class="active"><a href="/institute/show/<%= session.User.idUser %>"><%= session.User.idUser %></a></li>
+            <li><a href="/course/indexinstitute/<%= session.User.idUser %>">Courses</a></li>
+            <% } %>
+            <% if (session.User.U_type.localeCompare('admin') == 0) { %>
+            <li class="active"><a href="/user/show/<%= session.User.idUser %>"><%= session.User.idUser %></a></li>
+            <li><a href="/user">Users</a></li>
+            <li><a href="/subject/subjectadmin">Subjects</a></li>
+            <% } %>
             <% } %>
           </ul>
 
-          <!-- SIGN IN / SIGN OUT AREA -->
           <div class="navbar-right">
             <% if (session.authenticated){ %>
             <a class="btn btn-danger navbar-btn navbar-right" href="/session/destroy">Sign Out</a>
             <% } %>
             <% if (!session.authenticated){ %>
             <form action="/session/create" method="POST" class="navbar-form navbar-right">
-              <div class="form-group">
-                <input type="text" placeholder="Username" name="idUser">
-              </div>
-              <div class="form-group">
-                <input type="password" placeholder="Password" minlength="8" name="U_password">
-              </div>
-              <button type="submit" class="btn btn-primary">Sign in</button>
-              <a class="btn btn-success" href="/user/new">Sign up</a>
-              <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+            <div class="form-group">
+            <input type="text" placeholder="Username" name="idUser">
+            </div>
+            <div class="form-group">
+            <input type="password" placeholder="Password" minlength="8" name="U_password">
+            </div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
+            <a class="btn btn-success" href="/user/new">Sign up</a>
+            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
             </form>
             <% } %>
           </div>
         </div>
       </div>
     </div>
+    <div id="spacer"></div>
     
     <%- body %>
     
-    <footer class="footer pull-right">
+    <footer class="footer">
       <hr>
       <div>If you are interested in this project visit my website: 
         <a href="http://glenholmes.me">glenholmes</a>
@@ -77,6 +93,7 @@
     <!--SCRIPTS-->
     <script src="/linker/js/socket.io.js"></script>
     <script src="/linker/js/app.js"></script>
+    <script src="/linker/js/Chart.js"></script>
     <script src="/linker/js/formValidator.js"></script>
     <!--SCRIPTS END-->
   </body>

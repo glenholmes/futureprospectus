@@ -1,0 +1,47 @@
+<div class='container'>
+	<h2>Subject Administration</h2>
+	<hr>
+
+	<form action="/subject/create" method="POST" class="form-signin">
+		<h3 class"form-signin-heading">Create a subject</h3>
+
+		<% if(flash && flash.err) { %>
+		<% Object.keys(flash.err).forEach(function(error) { %>
+			<div class="alert alert-info"><%- JSON.stringify(flash.err[error]) %></div>
+		<% }) %>
+		<% } %>
+
+		<input type="text" class="form-control" placeholder="Subject Name" name="S_name">
+		<select class="form-control" name="S_cao">
+			<option value="none">Regular Subject</option>
+			<option value="bonus">Bonus Subject</option>
+		</select>
+		<br />
+		<input type="submit" class="btn btn-sm btn-primary btn-block" value="Create Subject"/>
+		<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+	</form>
+	<hr>
+	<h3>All Subjects</h3>
+	<table class="table">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Extra CAO</th>
+			<th></th>
+		</tr>
+		<% _.each(subjects, function(subject) { %>
+		<tr data-id="<%= subject.idSubjects %>" data-model="subject">
+			<td><%= subject.idSubjects %></td>
+			<td><%= subject.S_name %></td>
+			<td><%= subject.S_cao %></td>
+			<td>
+				<form action="/subject/destroy/<%= subject.idSubjects %>" method="POST">
+					<input type="hidden" name="_method" value="delete" />
+					<input type="submit" class="btn btn-sm btn-danger" value="Delete" />
+					<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+				</form>
+			</td>
+		</tr>
+		<% }) %>
+	</table>
+</div>

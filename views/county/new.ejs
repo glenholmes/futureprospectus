@@ -1,0 +1,47 @@
+<div class="container">
+	<h1>Counties</h1>
+	<h4>Select all the counties you wish to study in.</h4>
+	<form action="/county/create">
+		<div class="row">
+			<div class="col-sm-6 col-md-4">
+				<div class="thumbnail">
+				<input type="checkbox" name="idCounties" value="Carlow"> Carlow</br>
+				<input type="checkbox" name="idCounties" value="Cavan"> Cavan</br>
+				<input type="checkbox" name="idCounties" value="Clare"> Clare</br>
+				<input type="checkbox" name="idCounties" value="Cork"> Cork</br>
+				<input type="checkbox" name="idCounties" value="Donegal"> Donegal</br>
+				<input type="checkbox" name="idCounties" value="Dublin"> Dublin</br>
+				<input type="checkbox" name="idCounties" value="Galway"> Galway</br>
+				<input type="checkbox" name="idCounties" value="Kerry"> Kerry</br>
+				<input type="checkbox" name="idCounties" value="Kildare"> Kildare</br>
+				<input type="checkbox" name="idCounties" value="Kilkenny"> Kilkenny</br>
+				<input type="checkbox" name="idCounties" value="Laois"> Laois</br>
+				<input type="checkbox" name="idCounties" value="Leitrim"> Leitrim</br>
+				<input type="checkbox" name="idCounties" value="Limerick"> Limerick</br>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-4">
+				<div class="thumbnail">
+				<input type="checkbox" name="idCounties" value="Longford"> Longford</br>
+				<input type="checkbox" name="idCounties" value="Louth"> Louth</br>
+				<input type="checkbox" name="idCounties" value="Mayo"> Mayo</br>
+				<input type="checkbox" name="idCounties" value="Meath"> Meath</br>
+				<input type="checkbox" name="idCounties" value="Monaghan"> Monaghan</br>
+				<input type="checkbox" name="idCounties" value="Offaly"> Offaly</br>
+				<input type="checkbox" name="idCounties" value="Roscommon"> Roscommon</br>
+				<input type="checkbox" name="idCounties" value="Sligo"> Sligo</br>
+				<input type="checkbox" name="idCounties" value="Tipperary"> Tipperary</br>
+				<input type="checkbox" name="idCounties" value="Waterford"> Waterford</br>
+				<input type="checkbox" name="idCounties" value="Westmeath"> Westmeath</br>				
+				<input type="checkbox" name="idCounties" value="Wexford"> Wexford</br>
+				<input type="checkbox" name="idCounties" value="Wicklow"> Wicklow</br>
+				</div>
+			</div>
+		</div>
+	<div class="row pull-right">
+		<input type="submit" class="btn btn-sm btn-primary" value="Submit" />
+		<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+	</form>
+		<a href="/county/new" class="btn btn-sm btn-warning">Clear</a>
+	</div>
+</div>

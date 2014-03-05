@@ -1,0 +1,27 @@
+<div class="container">
+	<h1>Amenities</h1>
+	<h4>Select all the amenities available at <%- session.User.idUser %>.</h4>
+	<form action="/amenity/institutecreate">
+		<div class="row">
+			<% var index = 1; %>
+			<% var newcol %>
+			<% _.each(amenities, function(amenity) { %>
+			<% if(index%16 == 1){  %>
+				<div class="col-sm-6 col-md-4"><div class="thumbnail">
+			<% }; %>
+			<% index++; %>
+				<input type="checkbox" name="idAmenities" value="<%= amenity.idAmenities %>" /> <%= amenity.A_name %></br>
+
+			<% if(index%16 == 1){  %>
+					</div></div>
+			<% }; %>
+			<% }) %>
+			</div></div>
+		</div>
+	<div class="row pull-right">
+		<input type="submit" class="btn btn-sm btn-primary" value="Submit" />
+		<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+	</form>
+		<a href="/amenity/institutenew" class="btn btn-sm btn-warning">Clear</a>
+</div>
+</div>

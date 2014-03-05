@@ -1,14 +1,13 @@
 /**
- * Studentriasec
+ * Instituteamenity
  *
  * @module      :: Model
  * @description :: A short summary of how this model works and what it represents.
  * @docs		:: http://sailsjs.org/#!documentation/models
  */
 
-module.exports = {schema: true,
-
-	tableName: 'Student_Riasec',
+module.exports = {
+	tableName: 'Institute_Amenity',
 	adapter:'myLocalMySQLDatabase',
 	migrate: 'safe',
 	autoPk: false,
@@ -16,11 +15,11 @@ module.exports = {schema: true,
 	autoUpdatedAt: false,
 
 	attributes:{
-		RIASEC_idRIASEC: {
-			type: 'text',
+		Amenities_idAmenities: {
+			type: 'integer',
 			required: true
 		},
-		Students_User_idUser:{
+		Institutes_idInstitutes:{
 			type: 'string',
 			required: true
 		}

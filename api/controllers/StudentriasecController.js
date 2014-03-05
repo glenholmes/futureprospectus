@@ -32,9 +32,12 @@ module.exports = {
 		});
 	},
 	test : function(request, respond, next){
+		// get riasec values from client
 		var riasecs = new Array();
 		riasecs = request.param('riasec_letter');
+		// create an empty array for counting riasec values
 		var riasecCount = [0,0,0,0,0,0];
+		//count values
 		for (var index = 0; index < riasecs.length; index++) {
 			if(riasecs[index].match("R")){
 				riasecCount[0] += 1;
@@ -55,32 +58,74 @@ module.exports = {
 				riasecCount[5] += 1;
 			}
 		};
-
-		console.log(riasecCount[0]);
-
-		var maxIndex = 0;
+		// find position of maximum number i.e. first riasec
+		var maxIndexes = [ 0, 0];
 		var max = riasecCount[0];
-
+		// comparison loop
 		for (var j = 0; j < riasecCount.length; j++) {
 		    if (riasecCount[j] > max) {
-		        maxIndex = j;
+		        maxIndexes[0] = j;
 		        max = riasecCount[j];
 		    }
 		}
 
-		riasecCount[maxIndex] = Number.MIN_VALUE;
-		console.log(riasecCount[maxIndex]);
+		// set item at max position so it cannot be appear again
+		riasecCount[maxIndexes[0]] = -10;
 		max = riasecCount[0];
-		var secondMaxIndex = 0;
+
+		// redo comparison to find second maximum nuber i.e. second riasec
 		for (var j = 0; j < riasecCount.length; j++) {
 		    if (riasecCount[j] > max) {
-		        secondMaxIndex = j;
+		        maxIndexes[1] = j;
 		        max = riasecCount[j];
 		    }
 		}
 
-		console.log("Second Max Position: " + secondMaxIndex + ", Value: " + max);
+		var currentRiasec = "";
+		// write to database student id and riasec based on previous calculation
+		for (var i = 0; i < maxIndexes.length; i++) {
+			switch(maxIndexes[i]){
+				case 0:
+				currentRiasec = "R";
+				break;
+				case 1:
+				currentRiasec = "I";
+				break;
+				case 2:
+				currentRiasec = "A";
+				break;
+				case 3:
+				currentRiasec = "S";
+				break;
+				case 4:
+				currentRiasec = "E";
+				break;
+				case 5:
+				currentRiasec = "C";
+				break;
+			}
 
-		respond.redirect("/studentriasec/new");
+			Studentriasec.create({Students_User_idUser : request.session.User.idUser, RIASEC_idRIASEC: currentRiasec},
+				function srCreated (err, studentriasec){
+				//if an error occurs
+				if(err) return next(err);
+			});
+		};
+		respond.redirect("/studentriasec/personality/" + request.session.User.idUser);
+	},
+	//match personality to riasec
+	personality : function(request, respond){
+		Riasec.query("select * from RIASEC"
+			+" where idRIASEC IN"
+			+ " (select RIASEC_idRIASEC from Student_Riasec"
+			+" where Students_User_idUser = '"+ request.param('id') +"');",
+		function (err, riasecs){
+			if(err) return next(err);
+			//console.log(riasecs);
+			//pass all riasecs to view
+			respond.view({
+				riasecs: riasecs
+			});
+		});
 	}
 };

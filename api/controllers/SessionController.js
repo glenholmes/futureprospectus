@@ -62,7 +62,7 @@ module.exports = {
 				} else if(check.localeCompare('institute') == 0){
 					respond.redirect("/institute/show/"+ user.idUser);				
 				} else {
-					respond.redirect("/user/show/" + user.idUser);
+					respond.redirect("/user/");
 				}
 			});
 		});

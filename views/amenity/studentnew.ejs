@@ -1,0 +1,27 @@
+<div class="container">
+	<h1>Amenities and Hobbies</h1>
+	<h4>Select all the amenitys that you would like your third-level education institute to have.</h4>
+	<form action="/amenity/studentcreate">
+		<div class="row">
+			<% var index = 1; %>
+			<% var newcol %>
+			<% _.each(amenities, function(amenity) { %>
+			<% if(index%16 == 1){  %>
+				<div class="col-sm-6 col-md-4"><div class="thumbnail">
+			<% }; %>
+			<% index++; %>
+				<input type="checkbox" name="idAmenities" value="<%= amenity.idAmenities %>" /> <%= amenity.A_name %></br>
+
+			<% if(index%16 == 1){  %>
+					</div></div>
+			<% }; %>
+			<% }) %>
+			</div></div>
+		</div>
+	<div class="row pull-right">
+		<input type="submit" class="btn btn-sm btn-primary" value="Submit" />
+		<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+	</form>
+		<a href="/amenity/studentnew" class="btn btn-sm btn-warning">Clear</a>
+</div>
+</div>

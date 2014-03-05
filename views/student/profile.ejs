@@ -6,9 +6,9 @@
 	</h2>
 	<hr>
 	<div class='row-fluid'>
-		<div class='span5'>
-			<table class="table table-striped">
-				<h4>
+		<div class='span7'>
+			<table id="myTable" class="table table-striped">
+				<% if (student.S_CAO != null || student.S_CAO != undefined ){ %>
 				<tr>
 					<td>CAO Score:</td>
 					<td><%= student.S_CAO %></td>
@@ -20,14 +20,20 @@
 						</form>
 					</td>
 				</tr>
+				<% } %>
 				<tr>
 					<td>Guardian:</td>
 					<td><%- student.S_Parent %></td>
 					<td><a href="/student/edit/<%- student.User_idUser %>" class="btn btn-sm btn-warning">Edit</a></td>
 				</tr>
+				<tr>
+					<td>Personality:</td>
+					<td>View your personality type here.</td>
+					<td><a href="/studentriasec/personality/<%- student.User_idUser %>" class="btn btn-sm btn-warning">View Personality</a></td>
+				</tr>
 			</table>
 		</div>
-		<div class='span6'>
+		<div class='span4'>
 			<blockquote>
 			    <p>Education is the most powerful weapon which you can use to change the world.</p>
 			    <small>Nelson Mandela</small>
@@ -51,7 +57,7 @@
 			<!--<img data-src="holder.js/300x200" alt="..."> -->
 			<div class="caption">
 				<h3>Personality Calculator</h3>
-				<p>This personality calculator is based on the Holland Occupational Themes (RIASEC). The idea here is that everyones personality can be linked with a career type and vocational choice. The test was first developed by the psychologist John L. Holland. Each letter in the abbreviation "RIASEC" has a perticular meaning: Realistic (Doers), Investigative (Thinkers), Artistic (Creators), Social (Helpers), Enterprising (Persuaders), and Conventional (Organizers).</p>
+				<p>This personality calculator is based on the Holland Occupational Themes (RIASEC). The idea here is that everyones personality can be linked with a career type and vocational choice. The test was first developed by the psychologist John L. Holland. Each letter in the abbreviation "RIASEC" has a particular meaning: Realistic (Doers), Investigative (Thinkers), Artistic (Creators), Social (Helpers), Enterprising (Persuaders), and Conventional (Organizers).</p>
 				<p><a href="/studentriasec/new" class="btn btn-info">Step Two: Personality</a></p>
 				</div>
 			</div>
@@ -62,7 +68,7 @@
 			<div class="caption">
 				<h3>Sports and Hobbies</h3>
 				<p>Picking the perfect course for you can have a lot to do with picking the perfect third level institute. This step is about finding the institute that suits your extra corricular activities. For some it will be playing sports like soccer, others might enjoy canoeing. The great thing about third-level institutes is the variety will surely have something that suits everyone. DIT have a Kite and Wake Team for the extremists and Archery for the purists.</p>
-				<p><a href="#" class="btn btn-info">Step Three: Sports and Hobbies</a></p>
+				<p><a href="/sport/studentnew" class="btn btn-info">Step Three: Sports and Hobbies</a></p>
 				</div>
 			</div>
 		</div>
@@ -75,9 +81,54 @@
 				<h3>Location and Amenities</h3>
 				<p>This step is all about the institute.</br>
 					Where would you like to study?</br> By selecting a county or counties you would like to study in we can filter institutes that are local to your selection.</br> What amenities would you like the college to have?</br>Is a swimming pool and gymnasium as important to you as Trinity College Dublin's Library.</p>
-				<p><a href="subject/selector" class="btn btn-info">Step Four: Institute Details</a></p>
+				<p><a href="/amenity/studentnew" class="btn btn-info">Step Four: Institute Details</a></p>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<!-- jquery scripts for XHR -->
+<script>
+	$(document).ready(function(){
+		var user = location.pathname.split('/').slice(-1)[0];
+		// sport
+		$.get("/sport/studentshow/" + user, function(data){
+			var userSports = new Array;
+			userSports = data.studentsports;
+			var trow = "<tr><td>Sports:</td><td>";
+			for (var i = 0; i < userSports.length; i++) {
+				//console.log(userSports[i].S_name);
+				trow += userSports[i].S_name+". ";
+			};
+			trow += "</td><td></td></tr>";
+			console.log(trow);
+			$('#myTable tr:last').after(trow);
+		});
+		// amenity
+		$.get("/amenity/studentshow/" + user, function(data){
+			var userAmenities = new Array;
+			userAmenities = data.studentamenities;
+			var trow2 = "<tr><td>Amenities:</td><td>";
+			for (var i = 0; i < userAmenities.length; i++) {
+				//console.log(userAmenities[i].A_name);
+				trow2 += userAmenities[i].A_name+". ";
+			};
+			trow2 += "</td><td></td></tr>";
+			console.log(trow2);
+			$('#myTable tr:last').after(trow2);
+		});
+		// county
+		$.get("/county/showjson/" + user, function(data){
+			var userCounties = new Array;
+			userCounties = data.counties;
+			var trow3 = "<tr><td>Counties:</td><td>";
+			for (var i = 0; i < userCounties.length; i++) {
+				trow3 += userCounties[i].County_County_name +". ";
+			};
+			trow3 += "</td><td></td></tr>";
+			console.log(trow3);
+			$('#myTable tr:last').after(trow3);
+		});
+	});
+</script>

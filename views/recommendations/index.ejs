@@ -1,0 +1,52 @@
+<div class="container">
+	<h2>Recommended Courses</h2>
+
+	<% for(var i = 0; i < 5; i++){ %>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+		<h3 class="panel-title">1 :: Computer Science @ DIT</h3>
+		</div>
+		<div class="panel-body">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-md-4">
+						<h4>Recommendation</h4>
+						Course : <a href="/course/show/DT228">DT228</a></br>
+						CAO Points : 405</br>
+						Achievement : Level 8 NFQ</br> 
+						Institute : <a href="/institute/show/DIT">Dublin Institute of Technology</a></br>
+						Location : Dublin </br>
+						Email : <a href="mailto:info@dit.ie">info@dit.ie</a>
+					</div>
+					<div class="col-sm-6 col-md-4">
+						<h4>Match Breakdown</h4>
+						<canvas id="match" class="pull-left"></canvas>
+					</div>
+					<div class="col-sm-6 col-md-4">
+						<h4>Overall 90%</h4>
+						<canvas id="overall" class="pull-left"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<% } %>
+</div>
+<script>
+	var barChartData = {
+		labels : ["Personality","Academically","Sports","Amenities","Location"],
+		datasets : [
+			{
+				fillColor : "rgba(151,187,205,0.5)",
+				strokeColor : "rgba(151,187,205,1)",
+				data : [100,100,75,75,100]
+			}
+		]			
+	}
+	var myLine = new Chart(document.getElementById("match").getContext("2d")).Bar(barChartData, {});
+
+	var pieData = [{ value: 90, color:"#F38630" }, { value : 10, color : "#E0E4CC" },];
+	var myPie = new Chart(document.getElementById("overall").getContext("2d")).Pie(pieData);
+</script>
