@@ -4,24 +4,22 @@
 		<tr>
 			<th>Institute Name</th>
 			<th>URL</th>
-			<th>Email</th>
-			<th>Telephone</th>
-			<th>County</th>
+			<th></th>
 
+
+			<% if (!(session.User == undefined)) { %>
 			<% if (session.User.U_type.localeCompare('admin') == 0) { %>
 			<th></th>
-			<th></th>
-			<% } %>
+			<% }} %>
 		</tr>
 		<% _.each(institutes, function(institute) { %>
 		<tr data-id="<%= institute.idInstitutes %>" data-model="institute">
 			<td><%= institute.I_name %></td>
 			<td><a href="http://<%= institute.I_url %>"><%= institute.I_url %></a></td>
-			<td><a href="mailto:<%= institute.I_email %>"><%= institute.I_email %></a></td>
-			<td><a href="tel:<%= institute.I_telephone %>"><%= institute.I_telephone %></td>
-			<td><%= institute.County_County_name %></td>
+			<td><a href="/institute/show/<%= institute.idInstitutes %>" class="btn btn-sm btn-info">More Info</a></td>
+
+			<% if (!(session.User == undefined)) { %>
 			<% if (session.User.U_type.localeCompare('admin') == 0) { %>
-			<td><a href="/institute/show/<%= institute.idInstitutes %>" class="btn btn-sm btn-warning">Edit</a></td>
 			<td>
 				<form action="/institute/destroy/<%= institute.idInstitutes %>" method="POST">
 					<input type="hidden" name="_method" value="delete" />
@@ -29,7 +27,7 @@
 					<input type="hidden" name="_csrf" value="<%= _csrf%>" />
 				</form>
 			</td>
-			<% } %>
+			<% }} %>
 		</tr>
 		<% }) %>
 	</table>

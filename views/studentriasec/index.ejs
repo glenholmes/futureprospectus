@@ -1,5 +1,31 @@
 <div class="container">
-	<h1>All RIASEC Values</h1>
+	<h1>RIASEC - Holland Codes Test</h1>
+	<p>
+	This is based on Dr. John Holland’s theory
+	that people and work environments can be
+	loosely classified into six different groups. Each
+	of the letters corresponds to one of the
+	six groups described.
+	</p><p>
+	Different people’s personalities may find
+	different environments more to their liking.
+	While you may have some interests in and
+	similarities to several of the six groups, you may
+	be attracted primarily to two of the
+	areas. These two letters are your "Holland Code.”
+	For example, with a code of	"RE" you would most resemble the Realistic
+	type and somewhat less resemble the Enterprising
+	type.
+	</p>
+	The types that are not in your code are the types
+	you resemble least of all.
+	Most people, and most jobs, are best
+	represented by some
+	combination of two of the Holland interest areas. In addition,
+	most people are most satisfied if there is some
+	degree of fit between their personality and their
+	work environment.[1]
+	<hr>
 	<table class="table table-striped">
 		<% _.each(riasecs, function(riasec) { %>
 		<tr>
@@ -9,5 +35,10 @@
 			<td><%= riasec.R_description %></td>
 		</tr>
 		<% }) %>
-	</table>
+	</table>[2]
+	<hr>
+	<span class="help-block">
+		References: http://www.wiu.edu/advising/docs/Holland_Code.pdf</br>
+		http://en.wikipedia.org/wiki/Holland_Codes
+	</span>
 </div>

@@ -16,13 +16,32 @@
  */
 
 module.exports = {
-	'new': function(request, respond){
-		// show new.ejs view
-		respond.view();
+
+	//create a sport
+	create: function(request, respond, next){
+		Sport.query("insert into Sports values (default, '" + request.param('S_name') + "')",
+			function sportCreated (err, sport){
+			//if an error occurs
+			if (err) {
+				// log error
+				console.log(err);
+				request.session.flash = {
+					err: ["Cannot create sport"]
+				}
+				// redirect back to page
+				return respond.redirect('/sport/sportadmin');
+			}
+			//if sport is created sucessfully
+			//respond.json(sport);
+			//console.log(sport);
+			
+			//request.session.Sport = sport;
+			respond.redirect('/sport/sportadmin');
+		});
 	},
 
-	index: function(request, respond, next){
-		Sport.find().exec(function (err, sports){
+	sportadmin: function(request, respond, next){
+		Sport.find().sort('S_name').exec(function (err, sports){
 			if(err) return next(err);
 			
 			//pass all sports to view
@@ -54,8 +73,17 @@ module.exports = {
 			});
 			// console.log("UserID : " + request.session.User.idUser + ", SportID : " + selectedSports[i]);
 		};
-		// console.log(selectedSports);
-		respond.redirect("/student/profile/"+request.session.User.idUser);
+		Student.update({User_idUser : request.param('id')},
+			{S_Interests: 'A'}, function(err){
+			if(err){
+				request.session.flash = {
+					err: ["Sport : Update: Error"]
+				}
+				// redirect back to page
+				return respond.redirect('/error/index');
+			}
+			respond.redirect("/student/profile/"+request.param('id'));
+		});
 	},
 
 	studentshow : function(request, respond, next){
@@ -75,6 +103,30 @@ module.exports = {
 		});
 	},
 
+	clear : function(request, respond, next){
+		Studentsport.query("delete from Student_Sport where "+
+			"Students_User_idUser = '"+request.param('id')+"';", function(err){
+				if(err){
+					request.session.flash = {
+						err: ["Cannot clear sports values."]
+					}
+					// redirect back to page
+					return respond.redirect('/error/index');
+				}
+				Student.update({User_idUser : request.param('id')},
+					{S_Interests: null}, function(err){
+					if(err){
+						request.session.flash = {
+							err: ["Sport : Update: Error"]
+						}
+						// redirect back to page
+						return respond.redirect('/error/index');
+					}
+					respond.redirect("/student/profile/"+request.param('id'));
+				});
+			});
+	},
+
 	institutenew: function(request, respond, next){
 		Sport.find().exec(function (err, sports){
 			if(err) return next(err);
@@ -87,34 +139,31 @@ module.exports = {
 	},
 
 	institutecreate : function(request, respond, next){
-		// console.log(request.params.all());
+		var cur_ins = request.param('id');
+		Institutesport.destroy({Institutes_idInstitutes : cur_ins}, function(err){
+			if(err){
+				console.log("Error:" + err);
+			};
+		});
+
 		var selectedSports = request.param('idSports');
 		for (var i = 0; i < selectedSports.length; i++) {
 			Institutesport.create(
-				{Sports_idSports : selectedSports[i], Institutes_idInstitutes : request.session.User.idUser},
+				{Sports_idSports : selectedSports[i], Institutes_idInstitutes :cur_ins},
 				function(err, institutesport){
 				if(err) return next(err);
 			});
-			// console.log("UserID : " + request.session.User.idUser + ", SportID : " + selectedSports[i]);
 		};
-		// console.log(selectedSports);
-		respond.redirect("/institute/show/"+request.session.User.idUser);
+		respond.redirect("/institute/show/"+cur_ins);
 	},
 
 	instituteshow : function(request, respond, next){
-		console.log(request.params.all());
-		Institutesport.query(
-		 	"select Institute_Sport.Sports_idSports, Institute_Sport.Institutes_idInstitutes, Sports.S_name"
-		 	+ " from Institute_Sport"
-		 	+ " JOIN Sports ON Institute_Sport.Sports_idSports = Sports.idSports"
-		 	+ " where Institute_Sport.Institutes_idInstitutes = '"+request.param('id')+"';"
-		 	, function(err, institutesports){
+		Institutesport.find({Institutes_idInstitutes : request.session.User.idUser},
+		 	function(err, institutesports){
 			if(err) return next (err);
-		 	//console.log(institutesports);
-
 			respond.json({
 			 	institutesports : institutesports
 			});
 		});
-	}
+	},
 };

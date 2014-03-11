@@ -1,13 +1,98 @@
 <div class='container'>
-	Welcome <%- student.User_idUser %>, this is your profile area.
-	<h2>
-		<%- session.User.U_email %> &nbsp;
-		<a href="/user/edit/<%= student.User_idUser %>" class="btn btn-sm btn-warning">Edit</a>
-	</h2>
+	<h2>Testing Area</h2>
 	<hr>
+	<div class="row">
+		<div class="col-sm-4 col-md-3">
+			<div class="thumbnail">
+			<!--<img data-src="holder.js/300x200" alt="..."> -->
+			<div class="caption">
+				<h3>Your CAO</h3>
+
+				<% if (student.S_CAO == null || student.S_CAO == undefined ){ %>
+				<p>Colleges use your CAO score to see are you academically equipt to complete the course you chose. Step 1 of picking the perfect course for you is to capture your leaving certificate expectations, if you have already completed your leaving certificate this step is going to be even easier. Be honest and remember certain courses require particular subjects.</p>
+				<p><a href="/subject/selector/<%- student.User_idUser %>" class="btn btn-success btn-block">Calculate CAO</a></p>
+				<% } else { %>
+					<a href="/subject/clear/<%- student.User_idUser %>" class="btn btn-warning btn-block">Clear CAO</a>
+				<% } %>
+			</div>
+			</div>
+		</div>
+		
+		<div class="col-sm-4 col-md-3">
+			<div class="thumbnail">
+			<!--<img data-src="holder.js/300x200" alt="..."> -->
+			<div class="caption">
+				<h3>Your Personality</h3>
+
+				<% if (student.S_Personality == null || student.S_Personality == undefined ){ %>
+				<p>This personality calculator is based on the Holland Occupational Themes (RIASEC). The idea here is that everyones personality can be linked with a career type and vocational choice. Each letter in the abbreviation "RIASEC" has a particular meaning: Realistic (Doers), Investigative (Thinkers), Artistic (Creators), Social (Helpers), Enterprising (Persuaders), and Conventional (Organizers).</p>
+				<p><a href="/studentriasec/new/<%- student.User_idUser %>" class="btn btn-success btn-block">Personality Calculator</a></p>
+				<% } else { %>
+					<a href="/studentriasec/clear/<%- student.User_idUser %>" class="btn btn-warning btn-block">Clear Personality</a>
+				<% } %>
+
+			</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4 col-md-3">
+			<div class="thumbnail">
+			<!--<img data-src="holder.js/300x200" alt="..."> -->
+			<div class="caption">
+				<h3>Your Interests</h3>
+
+				<% if (student.S_Interests == null || student.S_Interests == undefined ){ %>
+				<p>Picking the perfect course for you can have a lot to do with picking the perfect third level institute. This step is about finding the institute that suits your extra corricular activities. For some it will be playing sports like soccer, others might enjoy canoeing. The great thing about third-level institutes is the variety will surely have something that suits everyone. DIT have a Kite and Wake Team.</p>
+				<p><a href="/sport/studentnew/<%- student.User_idUser %>" class="btn btn-success btn-block">Interest Selector</a></p>
+				<% } else { %>
+					<a href="/sport/clear/<%- student.User_idUser %>" class="btn btn-warning btn-block">Clear Interests</a>
+				<% } %>
+			</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4 col-md-3">
+			<div class="thumbnail">
+			<!--<img data-src="holder.js/300x200" alt="..."> -->
+			<div class="caption">
+				<h3>Your Experience</h3>
+
+				<% if (student.S_Institute == null || student.S_Institute == undefined ){ %>
+				<p>This step is all about the institute.</br>
+					Where would you like to study?</br> By selecting a county or counties you would like to study in we can filter institutes that are local to your selection.</br> What amenities would you like the college to have?</br>Is a swimming pool and gymnasium as important to you as Trinity College Dublin's Library.</p>
+				<p><a href="/amenity/studentnew/<%- student.User_idUser %>" class="btn btn-success btn-block">Amenity Selector</a></p>
+				<% } else { %>
+					<a href="/amenity/clear/<%- student.User_idUser %>" class="btn btn-warning btn-block">Clear Amenities</a>
+				<% } %>
+			</div>
+			</div>
+		</div>
+	</div>
+
+	<hr>
+		<h2>Results Area</h2>
+	<hr>
+
+	<div class="jumbotron">
+
+		<h1>futureProspectus</h1>
+
+		<% if ((student.S_CAO == null || student.S_CAO == undefined) || (student.S_Institute == null || student.S_Institute == undefined ) || (student.S_Interests == null || student.S_Interests == undefined ) || (student.S_Personality == null || student.S_Personality == undefined )) { %>
+		<h2>...the recommender system is not available until you have completed all the tests. You can however view courses based on completed criteria below.</h2>
+		<% } else { %>
+		<h2>...the recommender system is now available.</h2>
+		<a href="/recommender/yourcourses/<%- student.User_idUser %>" class="btn btn-lg btn-success">Start now</a>
+		<% } %>
+	</div>
+
 	<div class='row-fluid'>
 		<div class='span7'>
 			<table id="myTable" class="table table-striped">
+				<tr>
+					<th>Test</th>
+					<th>Result</th>
+					<th>Option</th>
+				</tr>
 				<% if (student.S_CAO != null || student.S_CAO != undefined ){ %>
 				<tr>
 					<td>CAO Score:</td>
@@ -15,22 +100,21 @@
 					<td>
 						<form action="/course/indexcao" method="POST">
 							<input type="hidden" name="S_CAO" value="<%= student.S_CAO %>" />
-							<input type="submit" class="btn btn-sm btn-default" value="View Courses" />
+							<input type="submit" class="btn btn-sm btn-info" value="View Courses" />
 							<input type="hidden" name="_csrf" value="<%= _csrf%>" />
 						</form>
 					</td>
 				</tr>
 				<% } %>
-				<tr>
-					<td>Guardian:</td>
-					<td><%- student.S_Parent %></td>
-					<td><a href="/student/edit/<%- student.User_idUser %>" class="btn btn-sm btn-warning">Edit</a></td>
-				</tr>
+				<% if (student.S_Personality != null || student.S_Personality != undefined ){ %>
 				<tr>
 					<td>Personality:</td>
 					<td>View your personality type here.</td>
-					<td><a href="/studentriasec/personality/<%- student.User_idUser %>" class="btn btn-sm btn-warning">View Personality</a></td>
+					<td>
+						<a href="/course/joincourse/<%- student.User_idUser %>" class="btn btn-sm btn-info">View Courses</a></br>
+					</td>
 				</tr>
+				<% } %>
 			</table>
 		</div>
 		<div class='span4'>
@@ -40,50 +124,21 @@
 			</blockquote>
 		</div>
 	</div>
+	
 	<hr>
+		<h2>Update Profile</h2>
+	<hr>
+	
 	<div class="row">
-		<div class="col-sm-6 col-md-4">
-			<div class="thumbnail">
-			<!--<img data-src="holder.js/300x200" alt="..."> -->
-			<div class="caption">
-				<h3>Subjects and CAO</h3>
-				<p>Colleges use your CAO score to see are you academically equipt to complete the course you chose. Step 1 of picking the perfect course for you is to capture your leaving certificate expectations, if you have already completed your leaving certificate this step is going to be even easier. Try to be as honest as possible. Certain courses require particular subjects, so your subject selection is also important here.</p>
-				<p><a href="/subject/selector" class="btn btn-info">Step One: Leaving Certificate</a></p>
-				</div>
-			</div>
+		<div class="col-sm-8 col-md-6">
+			<h3>Email: <%- session.User.U_email %> &nbsp;
+				<a href="/user/edit/<%= student.User_idUser %>" class="btn btn-sm btn-warning">Edit</a>
+			</h3>
 		</div>
-		<div class="col-sm-6 col-md-4">
-			<div class="thumbnail">
-			<!--<img data-src="holder.js/300x200" alt="..."> -->
-			<div class="caption">
-				<h3>Personality Calculator</h3>
-				<p>This personality calculator is based on the Holland Occupational Themes (RIASEC). The idea here is that everyones personality can be linked with a career type and vocational choice. The test was first developed by the psychologist John L. Holland. Each letter in the abbreviation "RIASEC" has a particular meaning: Realistic (Doers), Investigative (Thinkers), Artistic (Creators), Social (Helpers), Enterprising (Persuaders), and Conventional (Organizers).</p>
-				<p><a href="/studentriasec/new" class="btn btn-info">Step Two: Personality</a></p>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-6 col-md-4">
-			<div class="thumbnail">
-			<!--<img data-src="holder.js/300x200" alt="..."> -->
-			<div class="caption">
-				<h3>Sports and Hobbies</h3>
-				<p>Picking the perfect course for you can have a lot to do with picking the perfect third level institute. This step is about finding the institute that suits your extra corricular activities. For some it will be playing sports like soccer, others might enjoy canoeing. The great thing about third-level institutes is the variety will surely have something that suits everyone. DIT have a Kite and Wake Team for the extremists and Archery for the purists.</p>
-				<p><a href="/sport/studentnew" class="btn btn-info">Step Three: Sports and Hobbies</a></p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-6 col-md-4">
-			<div class="thumbnail">
-			<!--<img data-src="holder.js/300x200" alt="..."> -->
-			<div class="caption">
-				<h3>Location and Amenities</h3>
-				<p>This step is all about the institute.</br>
-					Where would you like to study?</br> By selecting a county or counties you would like to study in we can filter institutes that are local to your selection.</br> What amenities would you like the college to have?</br>Is a swimming pool and gymnasium as important to you as Trinity College Dublin's Library.</p>
-				<p><a href="/amenity/studentnew" class="btn btn-info">Step Four: Institute Details</a></p>
-				</div>
-			</div>
+		<div class="col-sm-8 col-md-6">
+			<h3>Guardian: <%- student.S_Parent %>
+				<a href="/student/edit/<%- student.User_idUser %>" class="btn btn-sm btn-warning">Edit</a>
+			</h3>
 		</div>
 	</div>
 </div>

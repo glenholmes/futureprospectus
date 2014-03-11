@@ -1,7 +1,7 @@
 <div class="container">
 	<h1>Amenities</h1>
 	<h4>Select all the amenities available at <%- session.User.idUser %>.</h4>
-	<form action="/amenity/institutecreate">
+	<form action="/amenity/institutecreate/<%- session.User.idUser %>">
 		<div class="row">
 			<% var index = 1; %>
 			<% var newcol %>
@@ -10,7 +10,7 @@
 				<div class="col-sm-6 col-md-4"><div class="thumbnail">
 			<% }; %>
 			<% index++; %>
-				<input type="checkbox" name="idAmenities" value="<%= amenity.idAmenities %>" /> <%= amenity.A_name %></br>
+				<input id="<%= amenity.idAmenities %>" type="checkbox" name="idAmenities" value="<%= amenity.idAmenities %>" /> <%= amenity.A_name %></br>
 
 			<% if(index%16 == 1){  %>
 					</div></div>
@@ -22,6 +22,20 @@
 		<input type="submit" class="btn btn-sm btn-primary" value="Submit" />
 		<input type="hidden" name="_csrf" value="<%= _csrf%>" />
 	</form>
-		<a href="/amenity/institutenew" class="btn btn-sm btn-warning">Clear</a>
+		<a href="/amenity/institutenew/<%- session.User.idUser %>" class="btn btn-sm btn-warning">Clear</a>
+	</div>
 </div>
-</div>
+<script>
+	// A simple script to check boxes of amenities currently stored in the database.
+	$(document).ready(function(){
+		var user = location.pathname.split('/').slice(-1)[0];
+		$.get("/amenity/instituteshow/" + user, function(data){
+			var insAmenities = new Array;
+			insAmenities = data.instituteamenities;
+			// loop through stored values and check box by id
+			for (var i = 0; i < insAmenities.length; i++) {
+				$('#'+ insAmenities[i].Amenities_idAmenities).prop('checked', true);
+			}
+		});
+	});
+</script>

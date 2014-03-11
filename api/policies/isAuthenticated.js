@@ -16,5 +16,8 @@ module.exports = function(request, respond, next) {
     return next();
   }
   // User is not allowed
+  request.session.flash = {
+	err : ["You must sign in to see your profile!"]
+  }
   return respond.redirect("/error/index");
 };

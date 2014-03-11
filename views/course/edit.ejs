@@ -1,18 +1,29 @@
-<form action="/course/update/<%= course.idCourses%>" method="POST" class="form-signin">
-	<h2 class="form-signin-heading">Edit Details</h2>
-	Current course name is: <i> <%- course.C_name %> </i><br />
-	<b>Type new course name here</b><br />
-	<input type="text" class="form-control" placeholder="Course name" name="C_name" value="<%- course.C_name %>" ><br />
-	Current CAO is: <i> <%- course.C_cao %> </i> <br />
-	<b>Type new CAO here</b><br />
-	<input type="number" class="form-control" placeholder="Current CAO" name="C_cao" value="<%- course.C_cao %>" ><br />
-	Current course description is:<i> <%- course.C_description %> </i><br />
-	<b>Enter new course description</b><br />
-	<input type="text" class="form-control" placeholder="Course Description" name="C_description" value="<%- course.C_description %>" >
-	Current course special requirements:<i> <%- course.C_special_reqs %>  </i><br />
-	<b>Type new course requirements</b><br />
-	<input type="text" class="form-control" placeholder="Special Requirements" name="C_special_reqs" value="<%- course.C_special_reqs %>" >
-	<p></p>
-		<input type="submit" class="btn btn-primary btn-block" value="Update Details"/>
-		<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
-</form>
+<div class='container'>
+	<div class="row"><div class="span6">
+	<form action="/course/update/<%= course.idCourses%>" method="POST" class="form-signin">
+		<h2 class="form-signin-heading">Edit Details</h2>
+
+		<% if(flash && flash.err) { %>
+		<% Object.keys(flash.err).forEach(function(error) { %>
+			<div class="alert alert-danger"><%- JSON.stringify(flash.err[error]) %></div>
+		<% }) %>
+		<% } %>
+
+		Current course name is: <i> <%- course.C_name %> </i><br />
+		<b>Type new course name here</b><br />
+		<input type="text" class="form-control" placeholder="Course name" name="C_name" value="<%- course.C_name %>" ><br />
+		Current CAO is: <i> <%- course.C_cao %> </i> <br />
+		<b>Type new CAO here</b><br />
+		<input type="number" class="form-control" placeholder="Current CAO" name="C_cao" value="<%- course.C_cao %>" ><br />
+		Current course description is:<i> <%- course.C_description %> </i><br />
+		<b>Enter new course description</b><br />
+		<input type="text" class="form-control" placeholder="Course Description" name="C_description" value="<%- course.C_description %>" >
+		Current course special requirements:<i> <%- course.C_special_reqs %>  </i><br />
+		<b>Type new course requirements</b><br />
+		<input type="text" class="form-control" placeholder="Special Requirements" name="C_special_reqs" value="<%- course.C_special_reqs %>" >
+		<p></p>
+			<input type="submit" class="btn btn-primary btn-block" value="Update Details"/>
+			<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+	</form>
+	</div></div>
+</div>

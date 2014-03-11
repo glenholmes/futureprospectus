@@ -1,21 +1,17 @@
-<form action="/institute/create" method="POST" class="form-signin">
-	<h2 class"form-signin-heading">Create New Course</h2>
+<div class='container'>
+	<div class="row"><div class="span6">
+		<form action="/course/create/<%= session.User.idUser %>" method="POST" class="form-signin">
+			<h2 class"form-signin-heading">Create New Course</h2>
 
-	<% if(flash && flash.err) { %>
-	<ul class="alert alert-success">
-	<% Object.keys(flash.err).forEach(function(error) { %>
-		<li><%- JSON.stringify(flash.err[error]) %></li>
-	<% }) %>
-	</ul>
-	<% } %>
-
-	<input type="text" class="form-control" placeholder="Course ID" name="idCourses">
-	<input type="text" class="form-control" placeholder="Course name" name="C_name">
-	<textarea rows="4" class="form-control" placeholder="Course Description" name="C_description"></textarea>
-	<input type="number" class="form-control" placeholder="CAO Requirements" name="C_cao">
-	<input type="text" class="form-control" placeholder="Level" name="C_level">
-	<input type="text" class="form-control" placeholder="Special Requirements" name="C_special_reqs">
-	<br />
-	<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>
-	<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
-</form>
+			<input type="text" class="form-control" placeholder="Course ID" name="idCourses">
+			<input type="text" class="form-control" placeholder="Course name" name="C_name">
+			<textarea rows="4" class="form-control" placeholder="Course Description" name="C_description"></textarea>
+			<input type="number" class="form-control" placeholder="CAO Requirements" name="C_cao">
+			<input type="text" class="form-control" placeholder="Level" name="C_level">
+			<input type="text" class="form-control" placeholder="Special Requirements" name="C_special_reqs">
+			<br />
+			<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>
+			<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+		</form>
+	</div></div>
+</div>

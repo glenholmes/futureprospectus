@@ -22,12 +22,12 @@ module.exports = {
 	},
 
 	create : function(request, respond, next){
+		var uname = request.param('id');
 		// check to see if a county has been selected
 		if(request.param('idCounties') === undefined || request.param('idCounties') == undefined){
-			respond.redirect('/county/new');
+			respond.redirect('/county/new/'+uname);
 		} else{
 			// get user
-			var uname = request.session.User.idUser;
 			// get counties
 			var selectedCounties = request.param('idCounties');
 			// only one county exists
@@ -48,8 +48,18 @@ module.exports = {
 					});
 				};
 			}
-			respond.redirect("/student/profile/"+request.session.User.idUser);
 		}
+		Student.update({User_idUser : uname},
+			{S_Institute: 'A'}, function(err){
+			if(err){
+				request.session.flash = {
+					err: ["S_Institute : Update: Error"]
+				}
+				// redirect back to page
+				return respond.redirect('/error/index');
+			}
+			respond.redirect("/student/profile/"+uname);
+		});
 	},
 
 	showjson : function(request, respond, next){
@@ -62,4 +72,13 @@ module.exports = {
 			});
 		});
 	},
+
+	clear : function(request, respond, next){
+		County.destroy({Students_User_idUser : request.param('id')},function(err){
+			if(err){
+				console.log('Error:'+ err);
+			}
+			respond.redirect("/student/profile/"+request.param('id'));
+		});
+	}
 };

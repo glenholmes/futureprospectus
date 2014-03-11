@@ -19,11 +19,12 @@
 		</div>
 	</div>
 	<hr>
+	<% if (!(session.User == undefined)) { %>
 	<% if (session.User.U_type.localeCompare('institute') == 0) { %>
 	<a href="/course/edit/<%= course.idCourses %>" class="btn btn-sm btn-warning">Update Course Details</a>	
 	<a href="/occupation/index/<%= course.idCourses %>" class="btn btn-sm btn-success">Add Course Occupations</a>
 	<a href="/course_occupation/destroy/<%= course.idCourses %>" class="btn btn-sm btn-danger">Clear Course Occupations </a>
-	<% } %>
+	<% }} %>
 </div>
 <script>
 	$(document).ready(function(){

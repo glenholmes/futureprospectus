@@ -111,7 +111,18 @@ module.exports = {
 				if(err) return next(err);
 			});
 		};
-		respond.redirect("/studentriasec/personality/" + request.session.User.idUser);
+		Student.update({User_idUser : request.param('id')},
+			{S_Personality: 'A'}, function studentUpdating(err){
+			if(err){
+				request.session.flash = {
+					err: ["Riasec : Update: Error"]
+				}
+				// redirect back to page
+				return respond.redirect('/error/index');
+			}
+			respond.redirect("/student/profile/"+request.param('id'));
+		});
+		//respond.redirect("/studentriasec/personality/" + request.session.User.idUser);
 	},
 	//match personality to riasec
 	personality : function(request, respond){
@@ -127,5 +138,30 @@ module.exports = {
 				riasecs: riasecs
 			});
 		});
+	},
+
+	// delete personality matches
+	clear : function(request, respond){
+		Studentriasec.query("delete from Student_Riasec where "+
+			"Students_User_idUser = '"+ request.param('id') + "';", function(err){
+				if(err){
+					request.session.flash = {
+						err: ["Cannot clear personality values."]
+					}
+					// redirect back to page
+					return respond.redirect('/error/index');
+				}
+				Student.update({User_idUser : request.param('id')},
+					{S_Personality: null}, function studentUpdating(err){
+					if(err){
+						request.session.flash = {
+							err: ["Riasec : Update: Error"]
+						}
+						// redirect back to page
+						return respond.redirect('/error/index');
+					}
+					respond.redirect("/student/profile/"+request.param('id'));
+				});
+			});
 	}
 };

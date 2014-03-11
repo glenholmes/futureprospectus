@@ -1,0 +1,23 @@
+<div class="container">
+	<h1>All Courses</h1>
+	<table class="table">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>CAO</th>
+			<th>Level</th>
+			<th>Institute</th>
+			<th></th>
+		</tr>
+		<% _.each(courses, function(course) { %>
+		<tr data-id="<%= course.idCourses %>" data-model="course">
+			<td><%= course.idCourses %></td>
+			<td><%= course.C_name %></td>
+			<td><%= course.C_cao %></td>
+			<td><%= course.C_level %></td>
+			<td><%= course.Institutes_idInstitutes %></td>			
+			<td><a href="/course/show/<%= course.idCourses %>" class="btn btn-sm btn-info">Show</a></td>
+		</tr>
+		<% }) %>
+	</table>
+</div>

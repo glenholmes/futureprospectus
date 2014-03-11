@@ -1,14 +1,20 @@
-<form action="/session/create" method="POST" class="form-signin">
-	<h2 class"form-signin-heading" >Sign in</h2>
-	
-	<% if(flash && flash.err) { %>
-	<% Object.keys(flash.err).forEach(function(error) { %>
-		<div class="alert alert-info"><%- JSON.stringify(flash.err[error]) %></div>
-	<% }) %>
-	<% } %>
+<div class='container'>
+	<div class="row"><div class="span6">
 
-	<input type="text" placeholder="Username" class="form-control" name="idUser">
-	<input type="password" class="form-control" placeholder="Password" name="U_password">
-	<input type="submit" class="btn btn-primary btn-block" value="Sign-in" />
-	<input type="hidden" name="_csrf" value="<%= _csrf %>" />
-</form>
+	<form action="/session/create" method="POST" class="form-signin">
+		<h2 class"form-signin-heading" >Sign in</h2>
+		
+		<% if(flash && flash.err) { %>
+		<% Object.keys(flash.err).forEach(function(error) { %>
+			<div class="alert alert-info"><%- JSON.stringify(flash.err[error]) %></div>
+		<% }) %>
+		<% } %>
+
+		<input type="text" placeholder="Username" class="form-control" name="idUser">
+		<input type="password" class="form-control" placeholder="Password" name="U_password">
+		<input type="submit" class="btn btn-primary btn-block" value="Sign-in" />
+		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+	</form>
+
+	</div></div>
+</div>

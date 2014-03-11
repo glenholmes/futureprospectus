@@ -1,14 +1,18 @@
-<form action="/user/updateadmin/<%= user.idUser %>" method="POST" class="form-signin">
-	<h2 class"form-signin-heading">User type edit</h2>
-	Current user type is: <%- user.U_type %> <br />
-	<b>Enter your new user type here</b><br />
-	<select placeholder="User Type" name="U_type">
-		<option value="student">Student</option>
-		<option value="institute">Institute</option>
-		<option value="admin">Administrator</option>
-	</select>
-	<input type="hidden" name="idUser" value="<%= user.idUser %>"/>
-	<br />
-	<input type="submit" class="btn btn-lg btn-primary btn-sm" value="Commit Change"/>
-	<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
-</form>
+<div class='container'>
+	<div class="row"><div class="span6">
+	<form action="/user/updateadmin/<%= user.idUser %>" method="POST" class="form-signin">
+		<h2 class"form-signin-heading">User type edit</h2>
+		Current user type is: <%- user.U_type %> <br />
+		<b>Enter your new user type here</b><br />
+		<select placeholder="User Type" name="U_type">
+			<option value="student">Student</option>
+			<option value="institute">Institute</option>
+			<option value="admin">Administrator</option>
+		</select>
+		<input type="hidden" name="idUser" value="<%= user.idUser %>"/>
+		<br />
+		<input type="submit" class="btn btn-lg btn-primary btn-sm" value="Commit Change"/>
+		<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+	</form>
+	</div></div>
+</div>

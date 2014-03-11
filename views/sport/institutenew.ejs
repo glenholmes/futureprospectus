@@ -1,7 +1,7 @@
 <div class="container">
 	<h1>Sports and Hobbies</h1>
 	<h4>Select all the sports available at <%- session.User.idUser %>.</h4>
-	<form action="/sport/institutecreate">
+	<form action="/sport/institutecreate/<%- session.User.idUser %>">
 		<div class="row">
 			<% var index = 1; %>
 			<% var newcol %>
@@ -10,7 +10,7 @@
 				<div class="col-sm-6 col-md-4"><div class="thumbnail">
 			<% }; %>
 			<% index++; %>
-				<input type="checkbox" name="idSports" value="<%= sport.idSports %>" /> <%= sport.S_name %></br>
+				<input id="<%= sport.idSports %>" type="checkbox" name="idSports" value="<%= sport.idSports %>" /> <%= sport.S_name %></br>
 
 			<% if(index%15 == 1){  %>
 					</div></div>
@@ -22,6 +22,20 @@
 		<input type="submit" class="btn btn-sm btn-primary" value="Submit" />
 		<input type="hidden" name="_csrf" value="<%= _csrf%>" />
 	</form>
-		<a href="/sport/institutenew" class="btn btn-sm btn-warning">Clear</a>
+		<a href="/sport/institutenew/<%- session.User.idUser %>" class="btn btn-sm btn-warning">Clear</a>
+	</div>
 </div>
-</div>
+<script>
+	// A simple script to check boxes of sports currently stored in the database.
+	$(document).ready(function(){
+		var user = location.pathname.split('/').slice(-1)[0];
+		$.get("/sport/instituteshow/" + user, function(data){
+			var insSports = new Array;
+			insSports = data.institutesports;
+			// loop through stored values and check box by id
+			for (var i = 0; i < insSports.length; i++) {
+				$('#'+ insSports[i].Sports_idSports).prop('checked', true);
+			}
+		});
+	});
+</script>

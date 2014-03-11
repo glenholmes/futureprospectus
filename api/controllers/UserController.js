@@ -44,7 +44,7 @@ module.exports = {
 
 			var check = user.U_type;
 			if(check.localeCompare('student') == 0){
-				respond.redirect("/student/create");
+				respond.redirect("/student/create/" + user.idUser);
 			} else {
 				respond.redirect("/user/show/" + user.idUser);
 			}

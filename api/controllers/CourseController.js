@@ -34,6 +34,32 @@ module.exports = {
 		});
 	},
 
+	create : function (request, respond, next){
+		console.log(request.params.all());
+		var idToUpper = request.param('id');
+		console.log(idToUpper);
+		idToUpper = idToUpper.toUpperCase();
+		console.log(idToUpper);
+		Course.query(
+			"insert into Course values ('"+request.param('idCourses')+"', '"
+				+request.param('C_name')+"', '"+request.param('C_description')+"', '"
+				+request.param('C_cao')+"', '"+request.param('C_level')+"', '"
+				+idToUpper+"', '"+request.param('C_special_reqs')+"');"
+			, function instituteCreated (err, course){
+			//if an error occurs
+			if (err) {
+				// log error
+				console.log(err);
+				request.session.flash = {
+					err: ["Cannot create course"]
+				}
+				// redirect back to page
+				return respond.redirect('/course/new/'+request.param('id'));
+			}			
+			respond.redirect('/course/show/'+request.param('idCourses'));
+		});
+	},
+
 	indexinstitute: function(request, respond, next){
 		// request.session.page = request.session.page + 1;
 		// console.log(request.session.page);
@@ -109,11 +135,11 @@ module.exports = {
 				if(err) return next(err);
 			});
 			//pass course to view
-			respond.redirect("/course");
+			respond.redirect("/course/indexinstitute/"+request.session.User.idUser);
 		});
 	},
 
-	algorithm: function (request, respond, next){
+	joincourse: function (request, respond, next){
 		Course.query("select * from Course where idCourses in"+
 			" (select Course_idCourses from Course_Occupation where Occupation_idOccupation in"+
 			" (select Occupation_idOccupation from Occupation_Riasec where RIASEC_idRIASEC in"+

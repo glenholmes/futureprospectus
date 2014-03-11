@@ -1,7 +1,7 @@
 <div class="container">
 	<h1>Counties</h1>
 	<h4>Select all the counties you wish to study in.</h4>
-	<form action="/county/create">
+	<form action="/county/create/<%- session.User.idUser %>">
 		<div class="row">
 			<div class="col-sm-6 col-md-4">
 				<div class="thumbnail">
@@ -42,6 +42,6 @@
 		<input type="submit" class="btn btn-sm btn-primary" value="Submit" />
 		<input type="hidden" name="_csrf" value="<%= _csrf%>" />
 	</form>
-		<a href="/county/new" class="btn btn-sm btn-warning">Clear</a>
+		<a href="/county/new/<%- session.User.idUser %>" class="btn btn-sm btn-warning">Clear</a>
 	</div>
 </div>

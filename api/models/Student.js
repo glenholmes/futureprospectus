@@ -28,6 +28,15 @@ module.exports = {
 		S_Parent: {
 			type: 'string',
 			email: true
+		},
+		S_Personality: {
+			type : 'string'
+		},
+		S_Interests: {
+			type : 'string'
+		},
+		S_Institute: {
+			type : 'string'
 		}
 	}
 };

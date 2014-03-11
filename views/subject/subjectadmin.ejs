@@ -1,37 +1,43 @@
+<!-- VIEW FOR LEAVING CERTIFICATE SUBJECT ADMINISTRATION -->
 <div class='container'>
 	<h2>Subject Administration</h2>
 	<hr>
 
-	<form action="/subject/create" method="POST" class="form-signin">
-		<h3 class"form-signin-heading">Create a subject</h3>
+	<!-- FORM FOR CREATING NEW SUBJECTS -->
+	<div class="row"><div class="span6">
+		<form action="/subject/create" method="POST" class="form-signin">
+			<h3>Create Subject</h3>
 
-		<% if(flash && flash.err) { %>
-		<% Object.keys(flash.err).forEach(function(error) { %>
-			<div class="alert alert-info"><%- JSON.stringify(flash.err[error]) %></div>
-		<% }) %>
-		<% } %>
+			<!-- RETURN ERROR MESSAGES -->
+			<% if(flash && flash.err) { %>
+			<% Object.keys(flash.err).forEach(function(error) { %>
+				<div class="alert alert-info"><%- JSON.stringify(flash.err[error]) %></div>
+			<% }) %>
+			<% } %>
 
-		<input type="text" class="form-control" placeholder="Subject Name" name="S_name">
-		<select class="form-control" name="S_cao">
-			<option value="none">Regular Subject</option>
-			<option value="bonus">Bonus Subject</option>
-		</select>
-		<br />
-		<input type="submit" class="btn btn-sm btn-primary btn-block" value="Create Subject"/>
-		<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
-	</form>
+			<input type="text" class="form-control" placeholder="Subject Name" name="S_name">
+			<select class="form-control" name="S_cao">
+				<option value="none">Regular Subject</option>
+				<option value="bonus">Bonus Subject</option>
+			</select>
+			<br />
+			<input type="submit" class="btn btn-success" value="Create Subject"/>
+			<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+		</form>
+	</div></div>
+
 	<hr>
 	<h3>All Subjects</h3>
-	<table class="table">
+
+	<!-- TABLE DISPLAYS ALL CURRENT SUBJECTS AND GIVES ABILITY TO DELETE SUBJECTS -->
+	<table class="table table-striped">
 		<tr>
-			<th>ID</th>
 			<th>Name</th>
 			<th>Extra CAO</th>
 			<th></th>
 		</tr>
 		<% _.each(subjects, function(subject) { %>
 		<tr data-id="<%= subject.idSubjects %>" data-model="subject">
-			<td><%= subject.idSubjects %></td>
 			<td><%= subject.S_name %></td>
 			<td><%= subject.S_cao %></td>
 			<td>

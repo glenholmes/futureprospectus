@@ -24,7 +24,8 @@ module.exports = {
 		},
 		S_name:{
 			type: 'string',
-			required: true
+			required: true,
+			maxLength: 45
 		}
 	}
 };

@@ -1,20 +1,27 @@
-<form action="/user/create" method="POST" class="form-signin">
-	<h2 class"form-signin-heading">Create an account</h2>
+<!-- VIEW FOR CREATING NEW USER -->
+<div class='container'>
+	<div class="row"><div class="span6">
+	<form action="/user/create" method="POST" class="form-signin">
+		<h2 class"form-signin-heading">Create an account</h2>
 
-	<% if(flash && flash.err) { %>
-	<ul class="alert alert-success">
-	<% Object.keys(flash.err).forEach(function(error) { %>
-		<li><%- JSON.stringify(flash.err[error]) %></li>
-	<% }) %>
-	</ul>
-	<% } %>
+		<!-- RETURN SERVER ERROR -->
+		<% if(flash && flash.err) { %>
+		<% Object.keys(flash.err).forEach(function(error) { %>
+			<div class="alert alert-danger"><%- JSON.stringify(flash.err[error]) %></div>
+		<% }) %>
+		<% } %>
 
-	<input type="text" class="form-control" placeholder="Username" name="idUser" id="idUser">
-	<input type="text" class="form-control" placeholder="Email" name="U_email" id="U_email">
-	<input type="hidden" class="form-control" name="U_type" value="student" id="U_type">
-	<input type="password" class="form-control" placeholder="Password" name="U_password" id="U_password">
-	<input type="password" class="form-control" placeholder="Confirm Password" name="Confirmation" id="Confirmation">
-	<br />
-	<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>
-	<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
-</form>
+		<!-- INPUTS -->
+		<input type="text" class="form-control" placeholder="Username" name="idUser" id="idUser">
+		<input type="text" class="form-control" placeholder="Email" name="U_email" id="U_email">
+		<input type="hidden" class="form-control" name="U_type" value="student" id="U_type">
+		<input type="password" class="form-control" placeholder="Password" name="U_password" id="U_password">
+		<input type="password" class="form-control" placeholder="Confirm Password" name="Confirmation" id="Confirmation">
+		<br />
+
+		<!-- SUBMIT -->
+		<input type="submit" class="btn btn-success" value="Create Account"/>
+		<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+	</form>
+	</div></div>
+</div>

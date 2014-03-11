@@ -16,10 +16,10 @@
  */
 
 module.exports = {
-	'new': function(request, respond){
-		// show new.ejs view
-		respond.view();
-	},
+	// 'new': function(request, respond){
+	// 	// show new.ejs view
+	// 	respond.view();
+	// },
 
 	//create a subject from the form on new.ejs
 	create: function(request, respond, next){
@@ -28,7 +28,7 @@ module.exports = {
 			//if an error occurs
 			if (err) {
 				// log error
-				console.log(err);
+				//console.log(err);
 				request.session.flash = {
 					err: ["Cannot create subject"]
 				}
@@ -44,16 +44,16 @@ module.exports = {
 		});
 	},
 
-	index: function(request, respond, next){
-		Subject.find(function allsubjects (err, subjects){
-			if(err) return next(err);
+	// index: function(request, respond, next){
+	// 	Subject.find(function allsubjects (err, subjects){
+	// 		if(err) return next(err);
 			
-			//pass all subjects to view
-			respond.view({
-				subjects: subjects
-			});
-		});
-	},
+	// 		//pass all subjects to view
+	// 		respond.view({
+	// 			subjects: subjects
+	// 		});
+	// 	});
+	// },
 
 	subjectadmin : function(request, respond, next){
 		Subject.find().sort('S_name').exec(function allsubjects (err, subjects){
@@ -120,6 +120,32 @@ module.exports = {
 			});
 		}
 		respond.redirect("/student/profile/" + request.session.User.idUser);
+	},
+
+	clear: function (request, respond, next){
+		Subject.query(
+			"Delete from Student_Subject where Students_User_idUser = '"+request.param('id')+"';"
+			,function (err, subjectmatches){
+				if(err) return next(err);
+				if(!subjectmatches){
+					request.session.flash = {
+						err: ["Subject : Clear : Error"]
+					}
+					// redirect back to page
+					return respond.redirect('/error/index');
+				}
+				Student.update({User_idUser : request.param('id')},
+					{S_CAO : null}, function studentUpdating(err){
+					if(err){
+						request.session.flash = {
+							err: ["Subject : Update: Error"]
+						}
+						// redirect back to page
+						return respond.redirect('/error/index');
+					}
+					respond.redirect("/student/profile/"+request.param('id'));
+				});
+		});
 	},
 
 	destroy: function (request, respond, next){

@@ -1,0 +1,66 @@
+<div class="container">
+	<h2>Recommended Courses</h2>
+	<div id="content"></div>
+
+</div>
+
+<script>
+	$(document).ready(function(){
+		var user = location.pathname.split('/').slice(-1)[0];
+		// sport
+		$.get("/recommender/recommendations/" + user, function(data){
+
+			var recs = new Array;
+			recs = data.rCourses;
+			
+			var myhtml = "";
+
+			for (var i = 0; i < recs.length; i++) {
+				myhtml += "<div class='panel panel-default'><div class='panel-heading'>"+
+					"<h3 class='panel-title'>"+(i+1)+" : "+recs[i].C_name+"</h3>"+
+					"</div><div class='panel-body'><div class='container'>"+
+					"<div class='row'><div class='col-sm-4 col-md-3'>"+ 
+					"<h4>Recommendation</h4>Course : <a href='/course/show/"+
+					recs[i].idCourses+ "'>"+recs[i].idCourses+"</a></br>"+
+					"CAO Points : "+recs[i].C_cao+"</br>Achievement : "+recs[i].C_level+
+					"</br> Institute : <a href='/institute/show/"+
+					recs[i].Institutes_idInstitutes+"'>"+recs[i].Institutes_idInstitutes+
+					"</a></br></div><div class='col-sm-8 col-md-5'><h4>Match Breakdown"+
+					"</h4><canvas id='match"+i+"'></canvas></div>"+
+					"<div class='col-sm-6 col-md-4'><h4>Overall "+recs[i].total+"%</h4>"+
+					"<canvas id='overall"+i+"'></canvas></div>"
+					+"</div></div></div></div>";	
+			}
+			$('#content').append(myhtml);
+
+			var barChartData;
+			var myLine;
+			var pieData;
+			var myPie;
+			var match = "";
+			var overall = "";
+			for (var i = 0; i < recs.length; i++) {
+				match = "match"+i+"";
+				barChartData = {
+					labels : ["CAO/Persona","Sports","Amenities","Location"],
+					datasets : [
+						{
+							fillColor : "rgba(151,187,205,0.5)",
+							strokeColor : "rgba(151,187,205,1)",
+							data : [(recs[i].cao_pers_weight * 2),
+									(recs[i].sports_weight * 5),
+									(recs[i].amenities_weight * 5),
+									(recs[i].county_weight * 10)]
+						}
+					]			
+				}
+				myLine = new Chart(document.getElementById(match).getContext("2d")).Bar(barChartData, {animationSteps : 10, scaleFontSize : 10});
+
+				overall = "overall"+i+"";
+				pieData = [{ value: recs[i].total, color:"#F38630" },
+								{ value : (100-recs[i].total), color : "#E0E4CC" },];
+				myPie = new Chart(document.getElementById(overall).getContext("2d")).Pie(pieData, {animationSteps : 50});
+			}
+		});
+	});
+</script>

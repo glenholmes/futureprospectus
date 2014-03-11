@@ -1,16 +1,20 @@
-<form action="/institute/update/<%= institute.idInstitutes%>" method="POST" class="form-signin">
-	<h2 class"form-signin-heading">Edit Details</h2>
-	Current web address is: <%- institute.I_url %> <br />
-	<b>Type your new web address here</b><br />
-	<input type="text" class="form-control" placeholder="Website Address" name="I_url" value="<%- institute.I_url %>" ><br />
-	Current email is: <%- institute.I_email %> <br />
-	<b>Type your new email address here</b><br />
-	<input type="text" class="form-control" placeholder="Email" name="I_email" value="<%- institute.I_email %>" ><br />
-	Current Telephone is: <%- institute.I_telephone %> <br />
-	<b>Type your new telephone here</b><br />
-	<input type="text" class="form-control" placeholder="Telephone" name="I_telephone" value="<%- institute.I_telephone %>" >
-	<p>
-		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Update Details"/>
-		<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
-	</p>
-</form>
+<div class='container'>
+	<div class="row"><div class="span6">
+	<form action="/institute/update/<%= institute.idInstitutes%>" method="POST" class="form-signin">
+		<h2 class"form-signin-heading">Edit Details</h2>
+		Current web address is: <%- institute.I_url %> <br />
+		<b>Type your new web address here</b><br />
+		<input type="text" class="form-control" placeholder="Website Address" name="I_url" value="<%- institute.I_url %>" ><br />
+		Current email is: <%- institute.I_email %> <br />
+		<b>Type your new email address here</b><br />
+		<input type="text" class="form-control" placeholder="Email" name="I_email" value="<%- institute.I_email %>" ><br />
+		Current Telephone is: <%- institute.I_telephone %> <br />
+		<b>Type your new telephone here</b><br />
+		<input type="text" class="form-control" placeholder="Telephone" name="I_telephone" value="<%- institute.I_telephone %>" >
+		<p>
+			<input type="submit" class="btn btn-lg btn-primary btn-block" value="Update Details"/>
+			<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+		</p>
+	</form>
+	</div></div>
+</div>

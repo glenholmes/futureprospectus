@@ -16,13 +16,28 @@
  */
 
 module.exports = {
-	'new': function(request, respond){
-		// show new.ejs view
-		respond.view();
+
+	create: function(request, respond, next){
+		Amenity.query("insert into Amenities values (default, '" + request.param('A_name') + "')",
+			function amenityCreated (err, amenity){
+			//if an error occurs
+			if (err) {
+				// log error
+				console.log(err);
+				request.session.flash = {
+					err: ["Cannot create amenity"]
+				}
+				// redirect back to page
+				return respond.redirect('/amenity/amenityadmin');
+			}
+			
+			//request.session.Amenity = amenity;
+			respond.redirect('/amenity/amenityadmin');
+		});
 	},
 
-	index: function(request, respond, next){
-		Amenity.find().exec(function (err, amenities){
+	amenityadmin: function(request, respond, next){
+		Amenity.find().sort('A_name').exec(function (err, amenities){
 			if(err) return next(err);
 			
 			//pass all amenities to view
@@ -44,18 +59,41 @@ module.exports = {
 	},
 
 	studentcreate : function(request, respond, next){
-		// console.log(request.params.all());
 		var selectedAmenities = request.param('idAmenities');
 		for (var i = 0; i < selectedAmenities.length; i++) {
 			Studentamenity.create(
-				{Amenities_idAmenities : selectedAmenities[i], Students_User_idUser : request.session.User.idUser},
+				{Amenities_idAmenities : selectedAmenities[i], Students_User_idUser : request.param('id')},
 				function(err, studentamenity){
-				if(err) return next(err);
+				if(err){
+					console.log('Error' + err);
+				}
 			});
-			// console.log("UserID : " + request.session.User.idUser + ", AmenityID : " + selectedAmenities[i]);
 		};
-		// console.log(selectedAmenities);
-		respond.redirect("/student/profile/"+request.session.User.idUser);
+		respond.redirect("/county/new/"+request.param('id'));
+	},
+
+	clear : function(request, respond, next){
+		Studentsport.query("delete from Student_Amenity where "+
+			"Students_User_idUser = '"+request.param('id')+"';", function(err){
+				if(err){
+					request.session.flash = {
+						err: ["Cannot clear amenities values."]
+					}
+					// redirect back to page
+					return respond.redirect('/error/index');
+				}
+				Student.update({User_idUser : request.param('id')},
+					{S_Institute: null}, function(err){
+					if(err){
+						request.session.flash = {
+							err: ["Amenities : Update: Error"]
+						}
+						// redirect back to page
+						return respond.redirect('/error/index');
+					}
+					respond.redirect("/county/clear/"+request.param('id'));
+				});
+			});
 	},
 
 	studentshow : function(request, respond, next){
@@ -87,35 +125,56 @@ module.exports = {
 	},
 
 	institutecreate : function(request, respond, next){
-		// console.log(request.params.all());
-		var cur_ins = request.session.User.idUser;
+		var cur_ins = request.param('id');
+		Instituteamenity.destroy({Institutes_idInstitutes : cur_ins}, function(err){
+			if(err){
+				console.log("Error:" + err);
+			};
+		});
 		var selectedAmenities = request.param('idAmenities');
 		for (var i = 0; i < selectedAmenities.length; i++) {
 			Instituteamenity.create(
 				{Amenities_idAmenities : selectedAmenities[i], Institutes_idInstitutes : cur_ins},
 				function(err, instituteamenity){
-				if(err) return next(err);
+				if(err){
+					console.log("Error:" + err);
+				};
 			});
-			// console.log("UserID : " + request.session.User.idUser + ", AmenityID : " + selectedAmenities[i]);
 		};
-		// console.log(selectedAmenities);
-		respond.redirect("/county/new");
+
+		respond.redirect("/institute/show/"+cur_ins);
 	},
 
 	instituteshow : function(request, respond, next){
-		console.log(request.params.all());
-		Instituteamenity.query(
-		 	"select Institute_Amenity.Amenities_idAmenities, Institute_Amenity.Institutes_idInstitutes, Amenities.A_name"
-		 	+ " from Institute_Amenity"
-		 	+ " JOIN Amenities ON Institute_Amenity.Amenities_idAmenities = Amenities.idAmenities"
-		 	+ " where Institute_Amenity.Institutes_idInstitutes = '"+request.param('id')+"';"
-		 	, function(err, instituteamenities){
+		Instituteamenity.find({Institutes_idInstitutes : request.session.User.idUser},
+			function(err, instituteamenities){
 			if(err) return next (err);
-		 	console.log(instituteamenities);
-
 			respond.json({
 			 	instituteamenities : instituteamenities
 			});
+		});
+	},
+
+	destroy: function (request, respond, next){
+		// find a amenity by idAmenities
+		Amenity.findOne({idAmenities : request.param('id')}, function findAmenity(err, amenity){
+			// if error return error
+			if(err) return next(err);
+			if(!amenity){
+				// log error
+				console.log(err);
+				request.session.flash = {
+					err: ["Destroy : Amenity does not exist"]
+				}
+				// redirect back to page
+				return respond.redirect('/amenity/amenityadmin');
+			}
+
+			Amenity.destroy({idAmenities : request.param('id')},function deleteAmenity(err){
+				if(err) return next(err);
+			});
+			//pass amenity to view
+			respond.redirect("/amenity/amenityadmin");
 		});
 	}
 }

@@ -1,7 +1,7 @@
 <div class="container">
 	<h1>Sports and Hobbies</h1>
 	<h4>Select all the sports and hobbies that you are likely to participate in during third-level education</h4>
-	<form action="/sport/studentcreate" method="POST" >
+	<form action="/sport/studentcreate/<%- session.User.idUser %>" method="POST" >
 		<div class="row">
 			<% var index = 1; %>
 			<% var newcol %>
@@ -22,6 +22,6 @@
 		<input type="submit" class="btn btn-sm btn-primary" value="Submit" />
 		<input type="hidden" name="_csrf" value="<%= _csrf%>" />
 	</form>
-		<a href="/sport/studentnew" class="btn btn-sm btn-warning">Clear</a>
+		<a href="/sport/studentnew/<%- session.User.idUser %>" class="btn btn-sm btn-warning">Clear</a>
 </div>
 </div>

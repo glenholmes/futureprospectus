@@ -1,0 +1,43 @@
+<!-- SPORT ADMINISTRATION -->
+<div class="container">
+	<h2>Amenity Administration</h2>
+	<hr>
+	<!-- create amenity -->
+	<div class="row"><div class="span6">
+		<form action="/amenity/create" method="POST" class="form-signin">
+			<h2 class"form-signin-heading">Create Amenity</h2>
+
+			<% if(flash && flash.err) { %>
+			<% Object.keys(flash.err).forEach(function(error) { %>
+				<div class="alert alert-danger"><%- JSON.stringify(flash.err[error]) %></div>
+			<% }) %>
+			<% } %>
+
+			<input type="text" class="form-control" placeholder="Amenity Name" name="A_name" maxlength="45">
+			<br />
+			<input type="submit" class="btn btn-success" value="Create Amenity"/>
+			<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+		</form>
+	</div></div>
+
+	<hr>
+	<h3>All Amenities</h3>
+	<table class="table table-striped">
+		<tr>
+			<th>Amenity Name</th>
+			<th>Remove</th>
+		</tr>
+		<% _.each(amenities, function(amenity) { %>
+		<tr data-id="<%= amenity.idAmenities %>" data-model="amenity">
+			<td><%= amenity.A_name %></td>
+			<td>
+				<form action="/amenity/destroy/<%= amenity.idAmenities %>" method="POST">
+					<input type="hidden" name="_method" value="delete" />
+					<input type="submit" class="btn btn-sm btn-danger" value="Delete" />
+					<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+				</form>
+			</td>
+		</tr>
+		<% }) %>
+	</table>
+</div>

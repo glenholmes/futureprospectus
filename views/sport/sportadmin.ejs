@@ -1,0 +1,43 @@
+<!-- SPORT ADMINISTRATION -->
+<div class="container">
+	<h2>Sport Administration</h2>
+	<hr>
+	<!-- create sport -->
+	<div class="row"><div class="span6">
+		<form action="/sport/create" method="POST" class="form-signin">
+			<h2 class"form-signin-heading">Create Sport</h2>
+
+			<% if(flash && flash.err) { %>
+			<% Object.keys(flash.err).forEach(function(error) { %>
+				<div class="alert alert-danger"><%- JSON.stringify(flash.err[error]) %></div>
+			<% }) %>
+			<% } %>
+
+			<input type="text" class="form-control" placeholder="Sport Name" name="S_name" maxlength="45">
+			<br />
+			<input type="submit" class="btn btn-success" value="Create Sport"/>
+			<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
+		</form>
+	</div></div>
+
+	<hr>
+	<h3>All Sports</h3>
+	<table class="table table-striped">
+		<tr>
+			<th>Sport Name</th>
+			<th>Remove</th>
+		</tr>
+		<% _.each(sports, function(sport) { %>
+		<tr data-id="<%= sport.idSports %>" data-model="sport">
+			<td><%= sport.S_name %></td>
+			<td>
+				<form action="/sport/destroy/<%= sport.idSports %>" method="POST">
+					<input type="hidden" name="_method" value="delete" />
+					<input type="submit" class="btn btn-sm btn-danger" value="Delete" />
+					<input type="hidden" name="_csrf" value="<%= _csrf%>" />
+				</form>
+			</td>
+		</tr>
+		<% }) %>
+	</table>
+</div>
