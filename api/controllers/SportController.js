@@ -64,15 +64,32 @@ module.exports = {
 
 	studentcreate : function(request, respond, next){
 		// console.log(request.params.all());
-		var selectedSports = request.param('idSports');
-		for (var i = 0; i < selectedSports.length; i++) {
-			Studentsport.create(
-				{Sports_idSports : selectedSports[i], Students_User_idUser : request.session.User.idUser},
-				function(err, studentsport){
-				if(err) return next(err);
-			});
-			// console.log("UserID : " + request.session.User.idUser + ", SportID : " + selectedSports[i]);
-		};
+		if(request.param('idSports') == undefined){
+			respond.redirect('/sport/studentcreate/'+request.param('id'));
+		} else {
+			var selectedSports = request.param('idSports');
+			//only one sport selected
+			if(selectedSports[0].length <=1 ){
+				Studentsport.create(
+					{Sports_idSports : selectedSports,
+						Students_User_idUser : request.session.User.idUser},
+					function(err, studentsport){
+					if(err) return next(err);
+				});
+			// more than one sport selected
+			} else {
+				for (var i = 0; i < selectedSports.length; i++) {
+					Studentsport.create(
+						{Sports_idSports : selectedSports[i],
+							Students_User_idUser : request.session.User.idUser},
+						function(err, studentsport){
+						if(err) return next(err);
+					});
+					// console.log("UserID : " + request.session.User.idUser + ", SportID : " + selectedSports[i]);
+				}
+			}
+		}
+
 		Student.update({User_idUser : request.param('id')},
 			{S_Interests: 'A'}, function(err){
 			if(err){
@@ -166,4 +183,27 @@ module.exports = {
 			});
 		});
 	},
+
+	destroy: function (request, respond, next){
+		// find a amenity by idSports
+		Sport.findOne({idSports : request.param('id')}, function findSport(err, sport){
+			// if error return error
+			if(err) return next(err);
+			if(!sport){
+				// log error
+				console.log(err);
+				request.session.flash = {
+					err: ["Destroy : Sport does not exist"]
+				}
+				// redirect back to page
+				return respond.redirect('/error/index');
+			}
+
+			Sport.destroy({idSports : request.param('id')},function deleteSport(err){
+				if(err) return next(err);
+			});
+			//pass amenity to view
+			respond.redirect("/sport/sportadmin");
+		});
+	}
 };

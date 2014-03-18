@@ -60,16 +60,31 @@ module.exports = {
 
 	studentcreate : function(request, respond, next){
 		var selectedAmenities = request.param('idAmenities');
-		for (var i = 0; i < selectedAmenities.length; i++) {
-			Studentamenity.create(
-				{Amenities_idAmenities : selectedAmenities[i], Students_User_idUser : request.param('id')},
-				function(err, studentamenity){
-				if(err){
-					console.log('Error' + err);
+		if(request.param('idAmenities') == undefined){
+			respond.redirect("/amenity/studentnew/"+request.param('id'));
+		} else {
+			var selectedAmenities = request.param('idAmenities');
+			// only one amenity exists
+			if(selectedAmenities[0].length <=1 ){
+				Studentamenity.create(
+						{Amenities_idAmenities : selectedAmenities, Students_User_idUser : request.param('id')},
+						function(err, studentamenity){
+					if(err) return next(err);
+				});
+			// if more than one amenity exists
+			} else {
+				for (var i = 0; i < selectedAmenities.length; i++) {
+					Studentamenity.create(
+						{Amenities_idAmenities : selectedAmenities[i], Students_User_idUser : request.param('id')},
+						function(err, studentamenity){
+						if(err){
+							console.log('Error' + err);
+						}
+					});
 				}
-			});
-		};
-		respond.redirect("/county/new/"+request.param('id'));
+			}
+			respond.redirect("/county/new/"+request.param('id'));
+		}
 	},
 
 	clear : function(request, respond, next){

@@ -1,7 +1,7 @@
 <div class="container">
 	<h1>Amenities</h1>
 	<h4>Select all the amenities available at <%- session.User.idUser %>.</h4>
-	<form action="/amenity/institutecreate/<%- session.User.idUser %>">
+	<form action="/amenity/institutecreate/<%- session.User.idUser %>"  method="POST">
 		<div class="row">
 			<% var index = 1; %>
 			<% var newcol %>

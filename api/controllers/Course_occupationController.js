@@ -21,7 +21,7 @@ module.exports = {
 			respond.redirect('/occupation/index/' + request.param('id'));
 		} else{
 			var selectedOccupations = request.param('idOccupation');
-			// only one county exists
+			// only one course exists
 			if(selectedOccupations[0].length <=1 ){
 				Course_occupation.create(
 					{Occupation_idOccupation : selectedOccupations, Course_idCourses : request.param('id')},
@@ -29,7 +29,7 @@ module.exports = {
 					if(err) return next(err);
 				});
 			}
-			// if more than one county exists
+			// if more than one course exists
 			else {
 				for (var i = 0; i < selectedOccupations.length; i++) {
 					Course_occupation.create(

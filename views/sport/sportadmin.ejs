@@ -6,13 +6,6 @@
 	<div class="row"><div class="span6">
 		<form action="/sport/create" method="POST" class="form-signin">
 			<h2 class"form-signin-heading">Create Sport</h2>
-
-			<% if(flash && flash.err) { %>
-			<% Object.keys(flash.err).forEach(function(error) { %>
-				<div class="alert alert-danger"><%- JSON.stringify(flash.err[error]) %></div>
-			<% }) %>
-			<% } %>
-
 			<input type="text" class="form-control" placeholder="Sport Name" name="S_name" maxlength="45">
 			<br />
 			<input type="submit" class="btn btn-success" value="Create Sport"/>

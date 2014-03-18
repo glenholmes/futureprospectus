@@ -1,9 +1,8 @@
 <div class="container">
 	<h2>Recommended Courses</h2>
+	<%- partial('partials/buttons') %>
 	<div id="content"></div>
-
 </div>
-
 <script>
 	$(document).ready(function(){
 		var user = location.pathname.split('/').slice(-1)[0];
@@ -39,7 +38,13 @@
 			var myPie;
 			var match = "";
 			var overall = "";
+			var sport_weight;
 			for (var i = 0; i < recs.length; i++) {
+				if(recs[i].sports_weight == undefined){
+					sport_weight = 0;
+				} else {
+					sport_weight = recs[i].sports_weight;
+				}
 				match = "match"+i+"";
 				barChartData = {
 					labels : ["CAO/Persona","Sports","Amenities","Location"],
@@ -48,7 +53,7 @@
 							fillColor : "rgba(151,187,205,0.5)",
 							strokeColor : "rgba(151,187,205,1)",
 							data : [(recs[i].cao_pers_weight * 2),
-									(recs[i].sports_weight * 5),
+									(sport_weight * 5),
 									(recs[i].amenities_weight * 5),
 									(recs[i].county_weight * 10)]
 						}

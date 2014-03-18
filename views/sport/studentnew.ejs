@@ -1,7 +1,7 @@
 <div class="container">
 	<h1>Sports and Hobbies</h1>
 	<h4>Select all the sports and hobbies that you are likely to participate in during third-level education</h4>
-	<form action="/sport/studentcreate/<%- session.User.idUser %>" method="POST" >
+	<form id="occs" action="/sport/studentcreate/<%- session.User.idUser %>" method="POST" onsubmit="return validateForm()" >
 		<div class="row">
 			<% var index = 1; %>
 			<% var newcol %>
@@ -25,3 +25,21 @@
 		<a href="/sport/studentnew/<%- session.User.idUser %>" class="btn btn-sm btn-warning">Clear</a>
 </div>
 </div>
+<script>
+function validateForm() {
+	var total = 0;
+	form = document.getElementById("occs");
+	var inputs = form.getElementsByTagName("input");
+
+	for(var i = 0; i < inputs.length; i++) {
+	     if (inputs[i].type === "checkbox" && inputs[i].checked){
+	     	total += 1;
+	     }
+	}
+
+	if(total < 1){
+		alert("You must select one or more sports!");
+		return false;
+	}
+}
+</script>

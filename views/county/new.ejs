@@ -1,7 +1,7 @@
 <div class="container">
 	<h1>Counties</h1>
 	<h4>Select all the counties you wish to study in.</h4>
-	<form action="/county/create/<%- session.User.idUser %>">
+	<form id="occs" action="/county/create/<%- session.User.idUser %>" method="POST" onsubmit="return validateForm()">
 		<div class="row">
 			<div class="col-sm-6 col-md-4">
 				<div class="thumbnail">
@@ -45,3 +45,21 @@
 		<a href="/county/new/<%- session.User.idUser %>" class="btn btn-sm btn-warning">Clear</a>
 	</div>
 </div>
+<script>
+function validateForm() {
+	var total = 0;
+	form = document.getElementById("occs");
+	var inputs = form.getElementsByTagName("input");
+
+	for(var i = 0; i < inputs.length; i++) {
+	     if (inputs[i].type === "checkbox" && inputs[i].checked){
+	     	total += 1;
+	     }
+	}
+
+	if(total < 1){
+		alert("You must select one or more counties!");
+		return false;
+	}
+}
+</script>

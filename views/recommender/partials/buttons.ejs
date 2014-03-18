@@ -1,0 +1,31 @@
+<div class="well well-sm">
+<label> Filters : </label>
+<% if(session.sport == undefined) { %>
+	&nbsp;
+	<a href="/recommender/removesport/<%- session.User.idUser %>" class="btn btn btn-default">Remove Sports</a>
+<% } else { %>
+	&nbsp;
+	<a href="/recommender/addsport/<%- session.User.idUser %>" class="btn btn btn-default">Add Sports</a>
+<% } %>
+<% if(session.amenity == undefined) { %>
+	&nbsp;
+	<a href="/recommender/removeamenity/<%- session.User.idUser %>" class="btn btn btn-default">Remove Amenities</a>
+<% } else { %>
+	&nbsp;
+	<a href="/recommender/addamenity/<%- session.User.idUser %>" class="btn btn btn-default">Add Amenities</a>
+<% } %>
+<% if(session.county == undefined) { %>
+	&nbsp;
+	<a href="/recommender/removecounty/<%- session.User.idUser %>" class="btn btn btn-default">Remove Counties</a>
+<% } else { %>
+	&nbsp;
+	<a href="/recommender/addcounty/<%- session.User.idUser %>" class="btn btn btn-default">Add Counties Amenities</a>
+<% } %>
+<% if(session.upcao == undefined) { %>
+	&nbsp;
+	<a href="/recommender/addcao/<%- session.User.idUser %>" class="btn btn btn-default">+50 CAO Points</a>
+<% } else { %>
+	&nbsp;
+	<a href="/recommender/regcao/<%- session.User.idUser %>" class="btn btn btn-default">Reset CAO</a>
+<% } %>
+</div>

@@ -34,75 +34,103 @@
 	});
 </script>
 <div class="container">
-	<form action="/subject/calculator" method="POST">
-		<h2>Enter your results</h2>
-		<select placeholder="Subject" name="Subject">
-		<% _.each(subjects, function(subject) { %>
-			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
-		<% }) %>
-		</select>
-		<select placeholder="Grade" name="Grade" id="Grade"></select>
-		<select placeholder="Level" name="Level" >
-			<option value="higher">Higher</option>
-			<option value="ordinary">Ordinary</option>
-		</select>
-		<br />
-		<select placeholder="Subject" name="Subject">
-		<% _.each(subjects, function(subject) { %>
-			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
-		<% }) %>
-		</select>
-		<select placeholder="Grade" name="Grade" id="Grade1"></select>
-		<select placeholder="Level" name="Level" >
-			<option value="higher">Higher</option>
-			<option value="ordinary">Ordinary</option>
-		</select>
-		<br />
-		<select placeholder="Subject" name="Subject">
-		<% _.each(subjects, function(subject) { %>
-			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
-		<% }) %>
-		</select>
-		<select placeholder="Grade" name="Grade" id="Grade2"></select>
-		<select placeholder="Level" name="Level" >
-			<option value="higher">Higher</option>
-			<option value="ordinary">Ordinary</option>
-		</select>
-		<br />
-		<select placeholder="Subject" name="Subject">
-		<% _.each(subjects, function(subject) { %>
-			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
-		<% }) %>
-		</select>
-		<select placeholder="Grade" name="Grade" id="Grade3"></select>
-		<select placeholder="Level" name="Level" >
-			<option value="higher">Higher</option>
-			<option value="ordinary">Ordinary</option>
-		</select>
-		<br />
-		<select placeholder="Subject" name="Subject">
-		<% _.each(subjects, function(subject) { %>
-			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
-		<% }) %>
-		</select>
-		<select placeholder="Grade" name="Grade" id="Grade4"></select>
-		<select placeholder="Level" name="Level" >
-			<option value="higher">Higher</option>
-			<option value="ordinary">Ordinary</option>
-		</select>
-		<br />
-		<select placeholder="Subject" name="Subject">
-		<% _.each(subjects, function(subject) { %>
-			<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
-		<% }) %>
-		</select>
-		<select placeholder="Grade" name="Grade" id="Grade5"></select>
-		<select placeholder="Level" name="Level" >
-			<option value="higher">Higher</option>
-			<option value="ordinary">Ordinary</option>
-		</select>
+	<form id="subs" action="/subject/calculator/<%- session.User.idUser %>" method="POST" onsubmit="return validateSubjects()">
+		<h2>Enter your results</h2>		
+		<div class="form-inline">
+			<select id="sub" class="form-control" placeholder="Subject" name="Subject">
+			<% _.each(subjects, function(subject) { %>
+				<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+			<% }) %>
+			</select>
+			<select class="form-control" placeholder="Grade" name="Grade" id="Grade"></select>
+			<select class="form-control" placeholder="Level" name="Level" >
+				<option value="higher">Higher</option>
+				<option value="ordinary">Ordinary</option>
+			</select>
+		</div>
+		<div class="form-inline">
+			<select id="sub1" class="form-control" placeholder="Subject" name="Subject">
+			<% _.each(subjects, function(subject) { %>
+				<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+			<% }) %>
+			</select>
+			<select class="form-control" placeholder="Grade" name="Grade" id="Grade1"></select>
+			<select class="form-control" placeholder="Level" name="Level" >
+				<option value="higher">Higher</option>
+				<option value="ordinary">Ordinary</option>
+			</select>
+		</div>
+		<div class="form-inline">
+			<select id="sub2" class="form-control" placeholder="Subject" name="Subject">
+			<% _.each(subjects, function(subject) { %>
+				<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+			<% }) %>
+			</select>
+			<select class="form-control" placeholder="Grade" name="Grade" id="Grade2"></select>
+			<select class="form-control" placeholder="Level" name="Level" >
+				<option value="higher">Higher</option>
+				<option value="ordinary">Ordinary</option>
+			</select>
+		</div>
+		<div class="form-inline">
+			<select id="sub3" class="form-control" placeholder="Subject" name="Subject">
+			<% _.each(subjects, function(subject) { %>
+				<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+			<% }) %>
+			</select>
+			<select class="form-control" placeholder="Grade" name="Grade" id="Grade3"></select>
+			<select class="form-control" placeholder="Level" name="Level" >
+				<option value="higher">Higher</option>
+				<option value="ordinary">Ordinary</option>
+			</select>
+		</div>
+		<div class="form-inline">
+			<select id="sub4" class="form-control" placeholder="Subject" name="Subject">
+			<% _.each(subjects, function(subject) { %>
+				<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+			<% }) %>
+			</select>
+			<select class="form-control" placeholder="Grade" name="Grade" id="Grade4"></select>
+			<select class="form-control" placeholder="Level" name="Level" >
+				<option value="higher">Higher</option>
+				<option value="ordinary">Ordinary</option>
+			</select>
+			</div>
+		<div class="form-inline">
+			<select id="sub5" class="form-control" placeholder="Subject" name="Subject">
+			<% _.each(subjects, function(subject) { %>
+				<option value="<%= subject.idSubjects %>"><%= subject.S_name %></option>
+			<% }) %>
+			</select>
+			<select class="form-control" placeholder="Grade" name="Grade" id="Grade5"></select>
+			<select class="form-control" placeholder="Level" name="Level" >
+				<option value="higher">Higher</option>
+				<option value="ordinary">Ordinary</option>
+			</select>
+		</div>
 		<br />
 		<input type="submit" class="btn btn-primary" value="Submit Results"/>
 		<input type="hidden" name="_csrf" value="<%= _csrf%>"/>
 	</form>
 </div>
+<script>
+function validateSubjects(){
+	var subjects = new Array();
+	subjects.push(document.getElementById("sub").value);
+	subjects.push(document.getElementById("sub1").value);
+	subjects.push(document.getElementById("sub2").value);
+	subjects.push(document.getElementById("sub3").value);
+	subjects.push(document.getElementById("sub4").value);
+	subjects.push(document.getElementById("sub5").value);
+
+	for (var i = 0; i < subjects.length; i++) {
+		for (var j = 0; j < subjects.length; j++) {
+			if((subjects[i] == subjects[j]) && i != j){
+				alert("Two subject fields cannot be the same!");
+				return false;
+			}
+		}
+	}
+}
+
+</script>

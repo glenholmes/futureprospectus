@@ -8,13 +8,6 @@
 		<form action="/subject/create" method="POST" class="form-signin">
 			<h3>Create Subject</h3>
 
-			<!-- RETURN ERROR MESSAGES -->
-			<% if(flash && flash.err) { %>
-			<% Object.keys(flash.err).forEach(function(error) { %>
-				<div class="alert alert-info"><%- JSON.stringify(flash.err[error]) %></div>
-			<% }) %>
-			<% } %>
-
 			<input type="text" class="form-control" placeholder="Subject Name" name="S_name">
 			<select class="form-control" name="S_cao">
 				<option value="none">Regular Subject</option>

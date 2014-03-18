@@ -40,7 +40,7 @@ module.exports = {
 			console.log(subject);
 			
 			//request.session.Subject = subject;
-			respond.redirect('/subject/');
+			respond.redirect('/subject/subjectadmin/'+request.param('id'));
 		});
 	},
 
@@ -78,7 +78,8 @@ module.exports = {
 	},
 
 	calculator: function(request, respond, next){
-		console.log(request.params.all());
+		//console.log(request.params.all());
+
 		var subjects = new Array();
 		var grades = new Array();
 		var levels = new Array();
@@ -86,6 +87,17 @@ module.exports = {
 		grades = request.param('Grade');
 		levels = request.param('Level');
 		var totalcao = 0;
+
+		//add selected subjects to the database these subjects can then be compared
+		//against required subjects for individual course
+		//eg.(Engineering -> Higher Maths)
+		for (var i = 0; i < subjects.length; i++) {
+			Subject.query("insert into Student_Subject values ("+
+				"'"+subjects[i]+"','"+request.param('id')+"','"+grades[i]+"','"+levels[i]+"');"
+			,function (err){
+				if(err) return next(err);
+			});
+		}
 
 		//calculate cao by grade and level
 		for(var i = 0; i < subjects.length; i++){
@@ -167,7 +179,7 @@ module.exports = {
 				if(err) return next(err);
 			});
 			//pass subject to view
-			respond.redirect("/subject");
+			respond.redirect("/subject/subjectadmin/"+request.param('id'));
 		});
 	}
 };
