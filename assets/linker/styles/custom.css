@@ -1,17 +1,26 @@
 #spacer {
-	padding-top: 50px;
+	padding-top: 60px;
+}
+
+#spacertwo {
+	padding-top: 20px;
+}
+
+#signup {
+	background-color:#0000ff;
+	text-align: center;
+	padding-bottom: 20px;
+}
+#signup-h1 {
+	color:#ffffff;
+}
+#signup-h3 {
+	
+	color:#c0c0c0;
 }
 
 .jumbotron{
 	text-align: center;
-}
-
-.jumbotron h2 {
-	font-size: 1.5em;
-	margin-bottom: 30px;
-	text-align: center;
-	font-weight: normal;
-	color: gray;
 }
 
 .footer {

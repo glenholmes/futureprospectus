@@ -109,9 +109,11 @@
 				<% if (student.S_Personality != null || student.S_Personality != undefined ){ %>
 				<tr>
 					<td>Personality:</td>
-					<td>View your personality type here.</td>
 					<td>
-						<a href="/course/joincourse/<%- student.User_idUser %>" class="btn btn-sm btn-info">View Courses</a></br>
+						<a href="/studentriasec/personality/<%- student.User_idUser %>" class="btn btn-sm btn-info">View Personality</a>
+					</td>
+					<td>
+						<a href="/course/joincourse/<%- student.User_idUser %>" class="btn btn-sm btn-info">View Courses</a>
 					</td>
 				</tr>
 				<% } %>

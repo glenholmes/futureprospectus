@@ -3,7 +3,6 @@
 	<table class="table">
 		<tr>
 			<th>Index</th>
-			<th>Personality Type</th>
 			<th>Occupation</th>
 		</tr>
 		<% var index = 0; %>
@@ -11,7 +10,6 @@
 		<tr data-id="<%= occupation.RIASEC_idRIASEC %>" data-model="occupation">
 			<% index += 1; %>
 			<td><%= index %></td>
-			<td><%= occupation.RIASEC_idRIASEC %></td>
 			<td><%= occupation.O_name %></td>
 		</tr>
 		<% }) %>

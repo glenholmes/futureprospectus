@@ -1,7 +1,7 @@
 <div class="container">
 	<h1>Sports and Hobbies</h1>
 	<h4>Select all the sports available at <%- session.User.idUser %>.</h4>
-	<form action="/sport/institutecreate/<%- session.User.idUser %>">
+	<form  id="occs" action="/sport/institutecreate/<%- session.User.idUser %>" onsubmit="return validateForm()">
 		<div class="row">
 			<% var index = 1; %>
 			<% var newcol %>
@@ -38,4 +38,23 @@
 			}
 		});
 	});
+</script>
+<script>
+function validateForm() {
+	// A script to check if at least one checkbox is seleceed
+	var total = 0;
+	form = document.getElementById("occs");
+	var inputs = form.getElementsByTagName("input");
+
+	for(var i = 0; i < inputs.length; i++) {
+	     if (inputs[i].type === "checkbox" && inputs[i].checked){
+	     	total += 1;
+	     }
+	}
+
+	if(total < 1){
+		alert("You must select one or more sports!");
+		return false;
+	}
+}
 </script>

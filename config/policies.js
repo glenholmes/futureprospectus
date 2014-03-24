@@ -44,7 +44,7 @@ module.exports.policies = {
     index : "isAuthenticated",
     adminindex: "isAdmin"
   },
-  institue:{
+  institute:{
     edit : "userAdmin",
     'new' : "isAdmin",
   },

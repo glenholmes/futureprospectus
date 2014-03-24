@@ -140,17 +140,24 @@ module.exports = {
 	},
 
 	joincourse: function (request, respond, next){
-		Course.query("select * from Course where idCourses in"+
-			" (select Course_idCourses from Course_Occupation where Occupation_idOccupation in"+
-			" (select Occupation_idOccupation from Occupation_Riasec where RIASEC_idRIASEC in"+
-			" (select RIASEC_idRIASEC from Student_Riasec"+
-			" where Students_User_idUser = '"+ request.param('id') +"')"+
-			" group by Occupation_idOccupation having count(Occupation_idOccupation) > 1));"
-		, function twoRiasecMatch(err, courses){
+		Course.query(
+			"select * from Course where Course.idCourses in ("+
+			"select Course_ids from "+
+			"( "+
+			" select c.idCourses as Course_ids, ocr.RIASEC_idRIASEC, count(ocr.RIASEC_idRIASEC) as RiasecOccurrences "+
+			" from Course as c "+
+			" left join Course_Occupation as co on co.Course_idCourses = c.idCourses "+
+			" left join Occupation_Riasec AS ocr on ocr.Occupation_idOccupation = co.Occupation_idOccupation "+
+			" left join Student_Riasec as sr on sr.RIASEC_idRIASEC = ocr.RIASEC_idRIASEC "+
+			" where sr.Students_User_idUser = '"+ request.param('id')+"'"+
+			" group by c.idCourses, ocr.RIASEC_idRIASEC "+
+			") as a group by Course_ids having count(Course_ids) > 1 ); "
+		, function courseMatch(err, courses){
 			if(err) return next(err);
 			if(!courses){
 				respond.redirect("/student/profile/"+ request.param('id'));
 			}
+			console.log(courses);
 			respond.view({
 				courses : courses
 			});
