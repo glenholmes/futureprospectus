@@ -48,14 +48,6 @@ module.exports.policies = {
     edit : "userAdmin",
     'new' : "isAdmin",
   },
-  course:{
-    index : "flash",
-    show: "flash",
-    indexcao : "flash",
-    edit : "isAuthenticated",
-    destroy : "isAuthenticated",
-    '*' : "userAdmin"
-  },
   county:{
     '*' : "isAuthenticated"
   },
